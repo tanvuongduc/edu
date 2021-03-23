@@ -1,23 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Card from './components/card'
 import reportWebVitals from './reportWebVitals';
+import App from './App';
 
-const App = (
-  <Fragment>
-    <Card></Card>
-    <br></br><br></br>
-    <Card></Card>
-    <br></br><br></br>
-    <Card></Card>
-    <br></br><br></br>
-    <Card></Card>
-    <br></br><br></br>
-  </Fragment>
+const _App = (
+  <App></App>
 );
 
-ReactDOM.render(App, document.getElementById('root'));
+ReactDOM.render(_App, document.getElementById('root'));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

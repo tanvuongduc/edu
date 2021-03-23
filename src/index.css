@@ -1,13 +1,48 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.main {
+  background: #6e6e6e;
+}
+
+.main .navBar {
+  background: #3a3a3a;
+  padding: 5px 10px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-items: center;
+}
+
+.main .navBar .logo {
+  flex: 1;
+}
+
+.main .navBar .searchBox {
+  border-radius: 5px;
+  flex: 2;
+}
+.main .navBar .navGroup {
+  text-align: center;
+  flex: 10;
+}
+.main .navBar .btnInfo {
+  text-align: right;
+  flex: 3;
+}
+.main .cardStatus .info  p{
+  display: inline-block;
+}
+.main .cardStatus .info  button{
+  float: right;
 }
