@@ -53,15 +53,10 @@ class Card extends Component {
                     <p>{status}</p>
                     <div className="info">
                         <p>{likes} likes</p>
-                        {/* <span>{this.state.comment}</span> */}
                         <button onClick={() => this.seen()}>Seen</button>
                         <button onClick={() => this.test()}>test</button>
                     </div>
                     <div className="comments">
-                        <input type="text" placeholder="comment here" value={this.state.comment} onChange={(ev) => this.onCommentChange(ev)}></input>
-
-                        <button onClick={() => this.addComment()}>Add comment</button>
-                        <br></br>
                         {comments && comments.map(comment => (
                             <Fragment>
                                 <span><b>{comment.author}</b> đã bình luận: </span>
@@ -73,32 +68,6 @@ class Card extends Component {
                 </div>
             </Fragment>
         )
-    }
-
-    onCommentChange(ev) {
-        console.log('111111111111111111');
-        // this.state.comment = ev.target.value
-        this.setState({
-            comment: ev.target.value
-        })
-    }
-
-    addComment() {
-        let comment = this.state.comment;
-        let obj = {
-            // comment: comment,
-            author: 'Văn Đức',
-            comment
-        }
-        let data = this.state.data;
-        console.log('aaaaaaaaaaaa', data);
-        // data.comments.push(obj)
-        // this.setState({
-        //     data
-        // })
-        this.props.data.comments.push(obj);
-        this.setState(this.state)
-
     }
 
     seen() {
