@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import Card from './components/card/card';
-import Home from './components/home/home';
-import Videos from './components/videos/videos';
 import NavBar from './components/nav-bar/nav-bar';
 
 let navData = {
@@ -110,17 +108,6 @@ class App extends Component {
         <Fragment>
           <div className="main">
             <NavBar data={this.state.navData} action={this.sayHello}></NavBar>
-
-            {/* <Suspense fallback={
-                  <h1>not found</h1>
-                }>
-                  <Switch>
-                    <Redirect exact from="/" to="home" />
-                    <Route exact path="/home" component={Home} />
-                    <Route exact path="/videos" component={Videos} />
-                  </Switch>
-                </Suspense> */}
-            {/* <Card data={feedData}></Card> */}
 
             {this.state.feedData.map(el => {
               return (
