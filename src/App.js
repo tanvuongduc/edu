@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import './index.css';
-import Card from './components/card';
+import Card from './components/card/card';
 
 
 class App extends Component {
