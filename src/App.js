@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Suspense } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './index.css';
 import Home from './components/home/home';
@@ -21,16 +21,12 @@ class App extends Component {
         <Fragment>
           <div className="main">
             <NavBar data={this.state.navData} action={this.sayHello}></NavBar>
-
-            <Suspense fallback={
-              <h1>not found</h1>
-            }>
+{'/home/villa'}
               <Switch>
                 <Redirect exact from="/" to="home" />
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/videos" component={Videos} />
               </Switch>
-            </Suspense>
           </div>
         </Fragment>
       </BrowserRouter>

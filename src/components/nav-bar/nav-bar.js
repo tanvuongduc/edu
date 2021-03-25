@@ -38,6 +38,10 @@ class NavBar extends Component {
         this.props.history.push(url);
     }
 
+    goBack = () => {
+        window.history.back()
+    }
+
 
     render() {
         let { textSearch } = this.state;
@@ -69,7 +73,7 @@ class NavBar extends Component {
                             return this.props.action()
                         }}>{this.props.data.userName}</button>
                     </div>
-                    <button onClick={()=>console.log('aaaaaa', this.state)}>test</button>
+                    <button onClick={() => console.log('aaaaaa', this.state)}>test</button>
 
                 </div>
             </Fragment>
