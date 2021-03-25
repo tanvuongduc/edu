@@ -9,7 +9,8 @@ class NavBar extends Component {
         // console.log('aaaaaaaaaaaaaaaaaaaaa', props)
         this.state = {
             textSearch: '',
-            language: 'SP'
+            language: 'SP',
+            data: props.data
         };
     }
 

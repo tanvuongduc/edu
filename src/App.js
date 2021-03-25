@@ -8,7 +8,11 @@ import NavBar from './components/nav-bar/nav-bar';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      navData: {
+        userName: 'Đức Tân',
+      }
+    };
   }
 
   render() {
