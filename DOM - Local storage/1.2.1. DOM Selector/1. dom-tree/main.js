@@ -155,5 +155,3 @@ let result = actions
         p.innerText = `Người dùng: ${user.name}`;
         container.appendChild(p)
     })
-
-// console.log('111111111111', result);
