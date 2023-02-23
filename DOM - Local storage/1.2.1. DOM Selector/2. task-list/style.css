@@ -1,0 +1,11 @@
+li:nth-child(odd) {
+    background-color: #ccc !important;
+}
+
+li:nth-child(even) {
+    background-color: #fefefe !important;
+}
+
+#className{
+
+}

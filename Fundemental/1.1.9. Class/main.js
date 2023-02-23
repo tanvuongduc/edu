@@ -6,26 +6,39 @@ class Animal {
     }
 
     color = 'red';
-    __name = 'afsdf'
+    nickname = 'afsdf'
 
     talk() {
-        // let __name = 'asdasd'
-        console.log(_name);
-        this.__name
-     }
-
-    hello() {
-        console.log(`hello, I am ${JSON.stringify(this)}`);
-        for (let i = 0; i < 3; i++) {
-            console.log(this.talk());
-        }
-        this.breath()
+        // let nickname = 'asdasd'
+        console.log(this.name);
+        this.nickname
     }
 
-    _breath(){
+    hello() {
+        console.log('Hello, my name is:', this.name);
+        // console.log(`hello, I am ${JSON.stringify(this)}`);
+        // for (let i = 0; i < 3; i++) {
+        //     console.log(this.talk());
+        // }
+        // this.breath()
+    }
+
+    _breath() {
 
     }
 }
+
+// let a1 = new Animal('Milu')
+// console.log('aaaaaaaaaa', a1);
+// a1.color;
+
+// let date = new Date()
+// date.getDate();
+// function test(){
+//     console.log('aaaaaaaaaaaaaa');
+// }
+
+// test();
 
 class Dog extends Animal {
     constructor(name) {
@@ -33,6 +46,7 @@ class Dog extends Animal {
         this.name = `dog ${name}`;
     }
     talk() {
+        super.talk();
         console.log('gâu');
     }
 }
@@ -43,17 +57,63 @@ class Cat extends Animal {
     }
 }
 
+// let mika = new Dog('Mika')
+// console.log('aaaaaaaaaaaaa', mika);
+// mika.talk();
+// mika.hello();
 
-const d1 = new Dog('Vàng');
-const d2 = new Dog('Mic');
-d1.hello()
-// d1.breath()
-console.log('aaaaaaaaaaaaaaa', d1.name, d2.name);
+// let meo = new Cat('ABC');
+// console.log('bbbbbbbbbbbbb', meo);
+// meo.hello();
 
-// const c1 = new Cat('Kitty');
-// const c2 = new Cat('Mướp');
-const a = new Animal('tan');
-a.hello()
+class Vehicle {
+    constructor(engineType, material) {
+        this.engineType = engineType;
+        this.material = material;
+    }
 
-// const animals = [d1, d2, c1, c2];
-// animals.forEach(a => a.hello());
+    engineType = '';
+    material = '';
+    status = 'stoped';
+
+    Start(method) {
+        if (method != 'auto' && method != 'manual') {
+            console.log('11111111111111');
+            return false;
+        }
+        else {
+            console.log('2222222222222222');
+            this.status = 'running';
+            return true;
+        }
+    };
+
+    Break(method) {
+        if (method != 'auto' && method != 'manual')
+            return false;
+        else {
+            this.status = 'stoped';
+            return true;
+        }
+    };
+}
+
+class Ship extends Vehicle {
+    constructor(engineType, material, loadCapacity) {
+        super(engineType, material)
+        this.engineType = engineType;
+        this.material = material;
+        this.loadCapacity = loadCapacity;
+    }
+
+
+}
+
+let ship1 = new Ship('Electricity', 'Metal', 10000)
+let ship2 = new Ship('Diesel', 'Metal', 100)
+
+console.log('aaaaaaaaaaaaaaa', ship1, ship2);
+ship1.Start('auto');
+console.log('bbbbbbbbbbbbbbb', ship1, ship2);
+
+

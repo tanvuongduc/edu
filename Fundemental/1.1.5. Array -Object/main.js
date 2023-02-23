@@ -106,38 +106,6 @@ let lifts = [
     },
 ]
 
-// [
-//     `<p>
-// <span><b>Người dùng: </b></span><span> Tân</span>
-// </p>
-// <p>
-// <span><b>Thang máy số: </b></span><span> 1</span>
-// </p>
-// <p>
-// <span><b>Vào tâng: </b></span><span> 1</span>
-// </p>
-// <p>
-// <span><b>Ra tâng: </b></span><span> 10</span>
-// </p>
-// <p>
-// <span><b>Thời gian: </b></span><span> 10h</span>
-// </p>`,
-//     `<p>
-// <span><b>Người dùng: </b></span><span> Minh</span>
-// </p>
-// <p>
-// <span><b>Thang máy số: </b></span><span> 2</span>
-// </p>
-// <p>
-// <span><b>Vào tâng: </b></span><span> 2</span>
-// </p>
-// <p>
-// <span><b>Ra tâng: </b></span><span> 10</span>
-// </p>
-// <p>
-// <span><b>Thời gian: </b></span><span> 11h</span>
-// </p>`]
-
 let actions = [
     {
         id: 1,
@@ -197,22 +165,31 @@ let actions = [
     },
 ]
 
-let result = actions.map(act => {
-    let user = users.find(u => u.id == act.userId);
-    let lift = lifts.find(l => l.id == act.liftId);
-    // console.log('111111111111111111', user);
-    // act.userId
-    if(0){
-        console.log('111111111111111111111111111111');
-    }
-    return `
+let result = actions
+    .filter(act => {
+        console.log('aaaaaaaaaaa', act);
+        // let actYear = new Date(act.time).getFullYear();
+        // return actYear >= 2023;
+        let start2023 = new Date(2023, 0, 1).getTime();
+        return act.time >= start2023;
+    })
+    .sort((a, b) => {
+        if (a.time < b.time) return -1;
+        else return 1;
+    })
+    .map(act => {
+        let user = users.find(u => u.id == act.userId);
+        let lift = lifts.find(l => l.id == act.liftId);
+        // console.log('111111111111111111', user);
+        // act.userId
+        return `
     <p>Người dùng: ${user.name}</p>
     <p>Tên thang máy: ${lift ? lift.name : ''}</p>
     <p>Vào tầng: ${act.from}</p>
     <p>Ra tầng: ${act.to}</p>
     <p>Thời gian: năm ${new Date(act.time).getFullYear()} - tháng ${new Date(act.time).getMonth() + 1} - ngày ${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()} - </p>
     `
-})
+    })
 console.log('11111111111111', result);
 
 
