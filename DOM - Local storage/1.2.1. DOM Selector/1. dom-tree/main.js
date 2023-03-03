@@ -17,7 +17,8 @@
 // console.log(a, b);
 let a = 2;
 let b = 3;
-let cat = "love dog";
+let d = 4;
+let e = 5;
 let users = [
     {
         id: 1,
@@ -218,3 +219,4 @@ let result = actions
 
 // console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
 // BTVN tạo bảng hiển thị thông tin
+
