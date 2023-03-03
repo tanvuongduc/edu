@@ -17,14 +17,9 @@
 // console.log(a, b);
 let a = 2;
 let b = 3;
-<<<<<<< HEAD
 
 let cat = "love dog";
 let dog = "love cat";
-=======
-let d = 4;
-let e = 5;
->>>>>>> 9ffe21c488e3e47f533fae2d96b97c5fe12247e3
 let users = [
     {
         id: 1,
