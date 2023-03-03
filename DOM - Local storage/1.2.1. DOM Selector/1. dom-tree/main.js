@@ -16,7 +16,7 @@
 // let b = document.getElementsByClassName('title')
 // console.log(a, b);
 
-let users = [
+let users = [ 
     {
         id: 1,
         name: 'tan',
