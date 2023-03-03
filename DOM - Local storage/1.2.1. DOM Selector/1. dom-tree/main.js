@@ -155,3 +155,4 @@ let result = actions
     p.innerText = `Người dùng: ${user.name}`;
     container.appendChild(p);
   });
+let a = 3;
