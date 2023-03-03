@@ -16,6 +16,7 @@
 // let b = document.getElementsByClassName('title')
 // console.log(a, b);
 let a = 2;
+let b = 4;
 let users = [ 
     {
         id: 1,
