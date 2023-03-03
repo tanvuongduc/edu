@@ -126,7 +126,7 @@ let actions = [
 ]
 
 let container = document.getElementById('container');
-
+let c = 10;
 let result = actions
     .filter(act => {
         console.log('aaaaaaaaaaa', act);
