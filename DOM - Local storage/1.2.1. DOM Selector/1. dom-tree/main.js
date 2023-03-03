@@ -15,15 +15,6 @@
 // let a = document.getElementById('id0')
 // let b = document.getElementsByClassName('title')
 // console.log(a, b);
-let a = 2;
-let b = 3;
-let cat = "love arsenal";
-let dog = "love cat";
-let animal = "love animal";
-let car = "love car";
-let f = 4;
-let d = 4;
-let e = 5;
 let users = [
   {
     id: 1,
@@ -81,6 +72,7 @@ let actions = [
     from: 1,
     to: 10,
     time: new Date(2023, 0, 2).getTime(),
+    
   },
   {
     id: 2,
@@ -133,7 +125,6 @@ let actions = [
 ];
 
 let container = document.getElementById("container");
-let c = 10;
 let result = actions
   .filter((act) => {
     console.log("aaaaaaaaaaa", act);
