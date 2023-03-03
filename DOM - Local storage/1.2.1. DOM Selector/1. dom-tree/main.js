@@ -23,7 +23,7 @@ let cat = "love dog";
 let dog = "love cat";
 =======
 let cat = "love girl";
-let dog = "love cat";
+let dog = "love yeu";
 let f = 4;
 let d = 4;
 let e = 5;
