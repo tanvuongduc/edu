@@ -163,6 +163,7 @@ let result = actions
     const tbl = document.getElementById("tbl");
     const tblBody = document.createElement("tbody");
 
+    // BTVN tạo bảng hiển thị thông tin
     // creating all cells
     for (let i = 0; i < 1; i++) {
       // creates a table row
@@ -225,3 +226,5 @@ let result = actions
     // sets the border attribute of tbl to '2'
     tbl.setAttribute("border", "2");
   });
+
+// console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
