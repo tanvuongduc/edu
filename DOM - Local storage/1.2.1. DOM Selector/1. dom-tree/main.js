@@ -17,6 +17,8 @@
 // console.log(a, b);
 let a = 2;
 let b = 3;
+let d = 4;
+let e = 5;
 let users = [ 
     {
         id: 1,
