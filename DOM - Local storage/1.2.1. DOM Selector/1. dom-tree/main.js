@@ -17,8 +17,11 @@
 // console.log(a, b);
 let a = 2;
 let b = 3;
-let c = 4;
 let cat = "love dog";
+let dog = "love cat";
+let f = 4;
+let d = 4;
+let e = 5;
 let users = [
   {
     id: 1,
@@ -154,7 +157,71 @@ let result = actions
     // <p>Thời gian: năm ${new Date(act.time).getFullYear()} - tháng ${new Date(act.time).getMonth() + 1} - ngày ${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()} - </p>
     // `
 
-    let p = document.createElement("p");
-    p.innerText = `Người dùng: ${user.name}`;
-    container.appendChild(p);
+    // let p = document.createElement('li');
+    // p.innerText = `Người dùng: ${user.name}`;
+    // container.appendChild(p)
+    const tbl = document.getElementById("tbl");
+    const tblBody = document.createElement("tbody");
+
+    // creating all cells
+    for (let i = 0; i < 1; i++) {
+      // creates a table row
+      const row = document.createElement("tr");
+
+      // Create a <td> element and a text node, make the text
+      // node the contents of the <td>, and put the <td> at
+      // the end of the table row
+      const cell1 = document.createElement("td");
+      const cellText1 = document.createTextNode(`${user.name}`);
+      cell1.appendChild(cellText1);
+      row.appendChild(cell1);
+
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+
+      const cell2 = document.createElement("td");
+      const cellText2 = document.createTextNode(`${lift ? lift.name : ""}`);
+      cell2.appendChild(cellText2);
+      row.appendChild(cell2);
+
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+
+      const cell3 = document.createElement("td");
+      const cellText3 = document.createTextNode(`${act.from}`);
+      cell3.appendChild(cellText3);
+      row.appendChild(cell3);
+
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+
+      const cell4 = document.createElement("td");
+      const cellText4 = document.createTextNode(`${act.to}`);
+      cell4.appendChild(cellText4);
+      row.appendChild(cell4);
+
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+
+      const cell5 = document.createElement("td");
+      const cellText5 = document.createTextNode(
+        `${new Date(act.time).getFullYear()}-${
+          new Date(act.time).getMonth() + 1
+        }-${new Date(act.time).getDate()} ${new Date(
+          act.time
+        ).getHours()} : ${new Date(act.time).getMinutes()}`
+      );
+      cell5.appendChild(cellText5);
+      row.appendChild(cell5);
+
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+    }
+
+    // put the <tbody> in the <table>
+    tbl.appendChild(tblBody);
+    // appends <table> into <body>
+    document.body.appendChild(tbl);
+    // sets the border attribute of tbl to '2'
+    tbl.setAttribute("border", "2");
   });
