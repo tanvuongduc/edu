@@ -1,4 +1,4 @@
-const a = Number('1');
+const a = Number('2');
 const b = parseInt('2');
 const c = parseFloat('3.123456');
 
