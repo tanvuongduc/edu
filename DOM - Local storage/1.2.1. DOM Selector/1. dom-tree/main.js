@@ -18,6 +18,7 @@
 let a = 2;
 let b = 3;
 let cat = "love dog";
+let dog = "love cat";
 let users = [
   {
     id: 1,
