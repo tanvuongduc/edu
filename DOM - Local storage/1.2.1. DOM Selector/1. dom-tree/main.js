@@ -19,6 +19,7 @@ let a = 2;
 let b = 3;
 let cat = "love arsenal";
 let dog = "love cat";
+let animal = "love animal";
 let car = "love car";
 let f = 4;
 let d = 4;
