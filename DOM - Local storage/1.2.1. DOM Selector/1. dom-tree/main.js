@@ -17,7 +17,7 @@
 // console.log(a, b);
 let a = 2;
 let b = 3;
-let cat = "love dog";
+let cat = "love arsenal";
 let dog = "love cat";
 let f = 4;
 let d = 4;
