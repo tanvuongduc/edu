@@ -15,14 +15,7 @@
 // let a = document.getElementById('id0')
 // let b = document.getElementsByClassName('title')
 // console.log(a, b);
-let a = 2;
-let b = 3;
-let cat = "love arsenal";
-let dog = "love cat";
-let f = 4;
-let d = 4;
-let e = 5;
-let ahihi = "your smile";
+
 let users = [
   {
     id: 1,
@@ -48,25 +41,25 @@ let users = [
 let lifts = [
   {
     id: "1",
-    name: "Thang máy 1",
+    name: "Number 1",
     status: true,
     currentFloor: 1,
   },
   {
     id: "2",
-    name: "Thang máy 2",
+    name: "Number 2",
     status: false,
     currentFloor: 15,
   },
   {
     id: "3",
-    name: "Thang máy 3",
+    name: "Number 3",
     status: true,
     currentFloor: 10,
   },
   {
     id: "4",
-    name: "Thang máy 4",
+    name: "Number 4",
     status: true,
     currentFloor: 19,
   },
@@ -78,15 +71,15 @@ let actions = [
     userId: 1,
     liftId: 1,
     from: 1,
-    to: 10,
-    time: new Date(2023, 0, 2).getTime(),
+    to: 7,
+    time: new Date(2020, 0, 2).getTime(),
   },
   {
     id: 2,
     userId: 2,
     liftId: 2,
     from: 2,
-    to: 10,
+    to: 16,
     time: new Date(2022, 3, 5).getTime(),
   },
   {
@@ -94,7 +87,7 @@ let actions = [
     userId: 3,
     liftId: 3,
     from: 3,
-    to: 10,
+    to: 8,
     time: new Date(2021, 9, 10).getTime(),
   },
   {
@@ -102,7 +95,7 @@ let actions = [
     userId: 4,
     liftId: 4,
     from: 4,
-    to: 10,
+    to: 6,
     time: new Date(2023, 1, 20).getTime(),
   },
   {
@@ -111,14 +104,14 @@ let actions = [
     liftId: 2,
     from: 5,
     to: 10,
-    time: new Date(2023, 1, 20).getTime(),
+    time: new Date(2028, 1, 20).getTime(),
   },
   {
     id: 6,
     userId: 2,
     liftId: 3,
     from: 6,
-    to: 10,
+    to: 21,
     time: new Date(2019, 1, 22).getTime(),
   },
   {
@@ -126,20 +119,20 @@ let actions = [
     userId: 3,
     liftId: 4,
     from: 7,
-    to: 10,
+    to: 12,
     time: new Date(2023, 1, 28).getTime(),
   },
 ];
 
 let container = document.getElementById("container");
-let c = 10;
+
 let result = actions
   .filter((act) => {
     console.log("aaaaaaaaaaa", act);
     // let actYear = new Date(act.time).getFullYear();
     // return actYear >= 2023;
-    let start2023 = new Date(2023, 0, 1).getTime();
-    return act.time >= start2023;
+    let start2020 = new Date(2020, 0, 1).getTime();
+    return act.time >= start2020;
   })
   .sort((a, b) => {
     if (a.time < b.time) return -1;
@@ -157,75 +150,45 @@ let result = actions
     // <p>Ra tầng: ${act.to}</p>
     // <p>Thời gian: năm ${new Date(act.time).getFullYear()} - tháng ${new Date(act.time).getMonth() + 1} - ngày ${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()} - </p>
     // `
-
-    // let p = document.createElement('li');
+    // Bài tập về nhà: tạo bảng có chứa thông tin của 3 array trên
+    // let p = document.createElement("p");
     // p.innerText = `Người dùng: ${user.name}`;
-    // container.appendChild(p)
-    const tbl = document.getElementById("tbl");
-    const tblBody = document.createElement("tbody");
+    // container.appendChild(p);
 
-    // BTVN tạo bảng hiển thị thông tin
-    // creating all cells
-    for (let i = 0; i < 1; i++) {
-      // creates a table row
-      const row = document.createElement("tr");
+    let trElement = document.createElement("tr");
 
-      // Create a <td> element and a text node, make the text
-      // node the contents of the <td>, and put the <td> at
-      // the end of the table row
-      const cell1 = document.createElement("td");
-      const cellText1 = document.createTextNode(`${user.name}`);
-      cell1.appendChild(cellText1);
-      row.appendChild(cell1);
+    let tdElement1 = document.createElement("td");
+    tdElement1.innerText = `${user.name}`;
 
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
-
-      const cell2 = document.createElement("td");
-      const cellText2 = document.createTextNode(`${lift ? lift.name : ""}`);
-      cell2.appendChild(cellText2);
-      row.appendChild(cell2);
-
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
-
-      const cell3 = document.createElement("td");
-      const cellText3 = document.createTextNode(`${act.from}`);
-      cell3.appendChild(cellText3);
-      row.appendChild(cell3);
-
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
-
-      const cell4 = document.createElement("td");
-      const cellText4 = document.createTextNode(`${act.to}`);
-      cell4.appendChild(cellText4);
-      row.appendChild(cell4);
-
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
-
-      const cell5 = document.createElement("td");
-      const cellText5 = document.createTextNode(
-        `${new Date(act.time).getFullYear()}-${
-          new Date(act.time).getMonth() + 1
-        }-${new Date(act.time).getDate()} ${new Date(
-          act.time
-        ).getHours()} : ${new Date(act.time).getMinutes()}`
-      );
-      cell5.appendChild(cellText5);
-      row.appendChild(cell5);
-
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
+    let tdElement2 = document.createElement("td");
+    let gender = user.gender;
+    if (gender) {
+      gender = "Male";
+    } else {
+      gender = "Female";
     }
+    tdElement2.innerText = gender;
 
-    // put the <tbody> in the <table>
-    tbl.appendChild(tblBody);
-    // appends <table> into <body>
-    document.body.appendChild(tbl);
-    // sets the border attribute of tbl to '2'
-    tbl.setAttribute("border", "2");
+    let tdElement3 = document.createElement("td");
+    tdElement3.innerText = `${lift.name}`;
+
+    let tdElement4 = document.createElement("td");
+    tdElement4.innerText = `${act.from}`;
+
+    let tdElement5 = document.createElement("td");
+    tdElement5.innerText = `${act.to}`;
+
+    let tdElement6 = document.createElement("td");
+    let date = new Date(act.time).getFullYear();
+    tdElement6.innerText = date;
+
+    trElement.appendChild(tdElement1);
+    trElement.appendChild(tdElement2);
+    trElement.appendChild(tdElement3);
+    trElement.appendChild(tdElement4);
+    trElement.appendChild(tdElement5);
+    trElement.appendChild(tdElement6);
+
+    let tdBody = document.getElementById("body-table");
+    tdBody.appendChild(trElement);
   });
-
-// console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
