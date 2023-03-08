@@ -15,13 +15,7 @@
 // let a = document.getElementById('id0')
 // let b = document.getElementsByClassName('title')
 // console.log(a, b);
-let a = 2;
-let b = 3;
-let cat = "love dog";
-let dog = "love cat";
-let f = 4;
-let d = 4;
-let e = 5;
+
 let users = [
   {
     id: 1,
@@ -79,6 +73,7 @@ let actions = [
     from: 1,
     to: 10,
     time: new Date(2023, 0, 2).getTime(),
+    
   },
   {
     id: 2,
@@ -117,7 +112,7 @@ let actions = [
     userId: 2,
     liftId: 3,
     from: 6,
-    to: 10,
+    to: 7,
     time: new Date(2019, 1, 22).getTime(),
   },
   {
@@ -131,7 +126,6 @@ let actions = [
 ];
 
 let container = document.getElementById("container");
-let c = 10;
 let result = actions
   .filter((act) => {
     console.log("aaaaaaaaaaa", act);
@@ -163,28 +157,29 @@ let result = actions
     const tbl = document.getElementById("tbl");
     const tblBody = document.createElement("tbody");
 
+    // BTVN tạo bảng hiển thị thông tin
     // creating all cells
     for (let i = 0; i < 1; i++) {
       // creates a table row
       const row = document.createElement("tr");
-
+      row.setAttribute("id", "row1"+`${act.liftId}`);
       // Create a <td> element and a text node, make the text
       // node the contents of the <td>, and put the <td> at
       // the end of the table row
-      const cell1 = document.createElement("td");
-      const cellText1 = document.createTextNode(`${user.name}`);
-      cell1.appendChild(cellText1);
-      row.appendChild(cell1);
+      // const cell1 = document.createElement("td");
+      // const cellText1 = document.createTextNode(`${user.name}`);
+      // cell1.appendChild(cellText1);
+      // row.appendChild(cell1);
 
-      // add the row to the end of the table body
-      tblBody.appendChild(row);
+      // // add the row to the end of the table body
+      // tblBody.appendChild(row);
 
       const cell2 = document.createElement("td");
       const cellText2 = document.createTextNode(`${lift ? lift.name : ""}`);
       cell2.appendChild(cellText2);
       row.appendChild(cell2);
 
-      // add the row to the end of the table body
+      // // add the row to the end of the table body
       tblBody.appendChild(row);
 
       const cell3 = document.createElement("td");
@@ -216,12 +211,54 @@ let result = actions
 
       // add the row to the end of the table body
       tblBody.appendChild(row);
-    }
 
+      const cell6 = document.createElement("td");
+
+      var btn = document.createElement("BUTTON");
+      btn.setAttribute("id", "btn"+`${act.liftId}`);
+      var t = document.createTextNode("CHI TIẾT");
+      btn.appendChild(t);
+
+      var btn1 = document.createElement("BUTTON");
+      btn1.setAttribute("id", "btn1"+`${act.liftId}`);
+      var t1 = document.createTextNode("XOÁ");
+      btn1.appendChild(t1);
+      
+      cell6.appendChild(btn);
+      cell6.appendChild(btn1);
+
+      
+      row.appendChild(cell6);
+
+      
+    }
+    
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
     // appends <table> into <body>
     document.body.appendChild(tbl);
     // sets the border attribute of tbl to '2'
     tbl.setAttribute("border", "2");
+    document.getElementById("btn"+`${act.liftId}`).onclick = function() {
+      document.getElementById("txt").innerHTML = `${lift.name}`;
+      document.getElementById("txt1").innerHTML ="vào tầng: "+`${act.from}`;
+      document.getElementById("txt2").innerHTML ="ra tầng: "+ `${act.to}`;
+      document.getElementById("txt3").innerHTML =`${new Date(act.time).getFullYear()}-${
+        new Date(act.time).getMonth() + 1
+      }-${new Date(act.time).getDate()} ${new Date(
+        act.time
+      ).getHours()} : ${new Date(act.time).getMinutes()}`;
+    };
+    document.getElementById("btn1"+`${act.liftId}`).onclick = function() {
+      alert("Bạn có muốn xoá "+ `${lift.name}`);
+    };
+    document.getElementById("btn1" + `${act.liftId}`).onclick = function() {
+      var row = document.getElementById("row1" + `${act.liftId}`);
+      if (confirm("Bạn có muốn xoá " + `${lift.name}`)) {
+        row.remove();
+      }
+    };
   });
+  
+ 
+// console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
