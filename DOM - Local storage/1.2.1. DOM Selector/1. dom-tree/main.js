@@ -217,11 +217,11 @@ let result = actions
     tdBody.appendChild(trElement);
 
     // Show info ra Table2
-    let clicked = 1;
+    let clicked = 0;
+    let tdBody2 = document.getElementById("body-table2");
 
     let showInfo = () => {
-      // chỉ đc click info 1 lần
-      if (clicked <= 1) {
+      if (clicked == 0) {
         let tdElement1 = document.createElement("td");
         tdElement1.innerText = `${user.name}`;
 
@@ -249,13 +249,20 @@ let result = actions
         trElement2.appendChild(tdElement6);
         trElement2.appendChild(tdElement8);
 
-        let tdBody2 = document.getElementById("body-table2");
         tdBody2.appendChild(trElement2);
-
+        console.log(tdBody2);
         let table2 = document.getElementById("table2");
         table2.style.display = "inline-block";
 
-        console.log(table2);
+        clicked++;
+      } else if (clicked % 2 == 0) {
+        tdBody2.appendChild(trElement2);
+        table2.style.display = "inline-block";
+
+        clicked++;
+      } else {
+        trElement2.remove();
+
         clicked++;
       }
     };
@@ -264,7 +271,6 @@ let result = actions
     infoBtn.addEventListener("click", showInfo);
 
     // Delete info trong Table1
-    let table1 = document.getElementById("table1");
     let delInfo = () => {
       trElement.remove();
       trElement2.remove();
