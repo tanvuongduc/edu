@@ -156,18 +156,19 @@ let result = actions
     // container.appendChild(p);
 
     let trElement = document.createElement("tr");
+    let trElement2 = document.createElement("tr");
 
-    let tdElement1 = document.createElement("td");
-    tdElement1.innerText = `${user.name}`;
+    // let tdElement1 = document.createElement("td");
+    // tdElement1.innerText = `${user.name}`;
 
-    let tdElement2 = document.createElement("td");
-    let gender = user.gender;
-    if (gender) {
-      gender = "Male";
-    } else {
-      gender = "Female";
-    }
-    tdElement2.innerText = gender;
+    // let tdElement2 = document.createElement("td");
+    // let gender = user.gender;
+    // if (gender) {
+    //   gender = "Male";
+    // } else {
+    //   gender = "Female";
+    // }
+    // tdElement2.innerText = gender;
 
     let tdElement3 = document.createElement("td");
     tdElement3.innerText = `${lift.name}`;
@@ -178,17 +179,95 @@ let result = actions
     let tdElement5 = document.createElement("td");
     tdElement5.innerText = `${act.to}`;
 
-    let tdElement6 = document.createElement("td");
-    let date = new Date(act.time).getFullYear();
-    tdElement6.innerText = date;
+    // let tdElement6 = document.createElement("td");
+    // let year = new Date(act.time).getFullYear();
+    // let month = new Date(act.time).getMonth();
+    // let day = new Date(act.time).getDay();
+    // tdElement6.innerText = `${day + 1}/${month + 1}/${year}`;
 
-    trElement.appendChild(tdElement1);
-    trElement.appendChild(tdElement2);
+    let tdElement7 = document.createElement("td");
+    let infoBtn = document.createElement("button");
+    infoBtn.innerText = "Information";
+    infoBtn.style.backgroundColor = "#0077b6";
+    infoBtn.style.color = "#fff";
+    infoBtn.style.border = "1px solid #0077b6";
+    infoBtn.style.margin = "5px 10px";
+    infoBtn.style.borderRadius = "4px";
+    infoBtn.style.cursor = "pointer";
+    let delBtn = document.createElement("button");
+    delBtn.innerText = "Delete";
+    delBtn.style.backgroundColor = "#0077b6";
+    delBtn.style.color = "#fff";
+    delBtn.style.border = "1px solid #0077b6";
+    delBtn.style.margin = "5px";
+    delBtn.style.borderRadius = "4px";
+    delBtn.style.cursor = "pointer";
+    tdElement7.appendChild(infoBtn);
+    tdElement7.appendChild(delBtn);
+
+    // trElement.appendChild(tdElement1);
+    // trElement.appendChild(tdElement2);
     trElement.appendChild(tdElement3);
     trElement.appendChild(tdElement4);
     trElement.appendChild(tdElement5);
-    trElement.appendChild(tdElement6);
+    // trElement.appendChild(tdElement6);
+    trElement.appendChild(tdElement7);
 
-    let tdBody = document.getElementById("body-table");
+    let tdBody = document.getElementById("body-table1");
     tdBody.appendChild(trElement);
+
+    // Show info ra Table2
+    let clicked = 1;
+
+    let showInfo = () => {
+      // chỉ đc click info 1 lần
+      if (clicked <= 1) {
+        let tdElement1 = document.createElement("td");
+        tdElement1.innerText = `${user.name}`;
+
+        let tdElement2 = document.createElement("td");
+        let gender = user.gender;
+        if (gender) {
+          gender = "Male";
+        } else {
+          gender = "Female";
+        }
+        tdElement2.innerText = gender;
+
+        let tdElement6 = document.createElement("td");
+        let year = new Date(act.time).getFullYear();
+        let month = new Date(act.time).getMonth();
+        let day = new Date(act.time).getDay();
+        tdElement6.innerText = `${day + 1}/${month + 1}/${year}`;
+
+        let tdElement8 = document.createElement("td");
+        let note = document.createElement("textarea");
+        tdElement8.appendChild(note);
+
+        trElement2.appendChild(tdElement1);
+        trElement2.appendChild(tdElement2);
+        trElement2.appendChild(tdElement6);
+        trElement2.appendChild(tdElement8);
+
+        let tdBody2 = document.getElementById("body-table2");
+        tdBody2.appendChild(trElement2);
+
+        let table2 = document.getElementById("table2");
+        table2.style.display = "inline-block";
+
+        console.log(table2);
+        clicked++;
+      }
+    };
+
+    //Click để show info
+    infoBtn.addEventListener("click", showInfo);
+
+    // Delete info trong Table1
+    let table1 = document.getElementById("table1");
+    let delInfo = () => {
+      trElement.remove();
+      trElement2.remove();
+    };
+    delBtn.addEventListener("click", delInfo);
   });
