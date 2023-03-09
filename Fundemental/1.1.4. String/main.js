@@ -1,4 +1,4 @@
-const firstName = 'Thế dz';
+const firstName = 'Thế dz nhat sv';
 
 const message = 'Hello I am ' + firstName;
 
