@@ -1,20 +1,3 @@
-// // DOM Selector
-// // 1. Document object
-// document;
-// document.all;
-// document.all.length;
-// document.head;
-// document.body;
-// document.URL;
-// for (let i = 0; i < document.scripts.length; i++) {
-//     const element = document.scripts[i];
-//     console.log(element.src);
-// }
-
-// /****************************************************/
-// let a = document.getElementById('id0')
-// let b = document.getElementsByClassName('title')
-// console.log(a, b);
 let a = 2;
 let b = 3;
 let cat = "love girl";
@@ -135,8 +118,6 @@ let c = 10;
 let result = actions
     .filter(act => {
         console.log('aaaaaaaaaaa', act);
-        // let actYear = new Date(act.time).getFullYear();
-        // return actYear >= 2023;
         let start2023 = new Date(2023, 0, 1).getTime();
         return act.time >= start2023;
     })
@@ -147,80 +128,60 @@ let result = actions
     .forEach(act => {
         let user = users.find(u => u.id == act.userId);
         let lift = lifts.find(l => l.id == act.liftId);
-        // console.log('111111111111111111', user);
-        // act.userId
-        //     return `
-        // <p>Người dùng: ${user.name}</p>
-        // <p>Tên thang máy: ${lift ? lift.name : ''}</p>
-        // <p>Vào tầng: ${act.from}</p>
-        // <p>Ra tầng: ${act.to}</p>
-        // <p>Thời gian: năm ${new Date(act.time).getFullYear()} - tháng ${new Date(act.time).getMonth() + 1} - ngày ${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()} - </p>
-        // `
-
-        // let p = document.createElement('li');
-        // p.innerText = `Người dùng: ${user.name}`;
-        // container.appendChild(p)
+       
         const tbl = document.getElementById("tbl");
         const tblBody = document.createElement("tbody");
-
-        // BTVN tạo bảng hiển thị thông tin
-        // creating all cells
-        for (let i = 0; i < 1; i++) {
-            // creates a table row
+        
+            
             const row = document.createElement("tr");
 
-            // Create a <td> element and a text node, make the text
-            // node the contents of the <td>, and put the <td> at
-            // the end of the table row
             const cell1 = document.createElement("td");
             const cellText1 = document.createTextNode(`${user.name}`);
             cell1.appendChild(cellText1);
             row.appendChild(cell1);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+           
 
             const cell2 = document.createElement("td");
             const cellText2 = document.createTextNode(`${lift ? lift.name : ''}`);
             cell2.appendChild(cellText2);
             row.appendChild(cell2);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+           
 
             const cell3 = document.createElement("td");
             const cellText3 = document.createTextNode(`${act.from}`);
             cell3.appendChild(cellText3);
             row.appendChild(cell3);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+            
 
             const cell4 = document.createElement("td");
             const cellText4 = document.createTextNode(`${act.to}`);
             cell4.appendChild(cellText4);
             row.appendChild(cell4);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+           
 
             const cell5 = document.createElement("td");
             const cellText5 = document.createTextNode(`${new Date(act.time).getFullYear()}-${new Date(act.time).getMonth() + 1}-${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()}`);
             cell5.appendChild(cellText5);
             row.appendChild(cell5);
 
-            // add the row to the end of the table body
             tblBody.appendChild(row);
-        }
+            
+            const cell6 = document.createElement("td");
+            const btn1 = document.createElement("button");
+            const btn2 = document.createElement("button");d
+            row.appendChild(cell6);
 
-        // put the <tbody> in the <table>
+            tblBody.appendChild(row);
+
+
         tbl.appendChild(tblBody);
-        // appends <table> into <body>
         document.body.appendChild(tbl);
-        // sets the border attribute of tbl to '2'
         tbl.setAttribute("border", "2");
     })
 
-// console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
 
 
