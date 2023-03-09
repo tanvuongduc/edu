@@ -72,7 +72,6 @@ let actions = [
     from: 1,
     to: 10,
     time: new Date(2023, 0, 2).getTime(),
-    
   },
   {
     id: 2,
@@ -165,18 +164,18 @@ let result = actions
       // Create a <td> element and a text node, make the text
       // node the contents of the <td>, and put the <td> at
       // the end of the table row
-      const cell1 = document.createElement("td");
-      const cellText1 = document.createTextNode(`${user.name}`);
-      cell1.appendChild(cellText1);
-      row.appendChild(cell1);
+      // const cell1 = document.createElement("td");
+      // const cellText1 = document.createTextNode(`${user.name}`);
+      // cell1.appendChild(cellText1);
+      // row.appendChild(cell1);
 
       // add the row to the end of the table body
-      tblBody.appendChild(row);
+      //tblBody.appendChild(row);
 
-      const cell2 = document.createElement("td");
-      const cellText2 = document.createTextNode(`${lift ? lift.name : ""}`);
-      cell2.appendChild(cellText2);
-      row.appendChild(cell2);
+      // const cell2 = document.createElement("td");
+      // const cellText2 = document.createTextNode(`${lift ? lift.name : ""}`);
+      // cell2.appendChild(cellText2);
+      // row.appendChild(cell2);
 
       // add the row to the end of the table body
       tblBody.appendChild(row);
@@ -211,6 +210,35 @@ let result = actions
       // add the row to the end of the table body
       tblBody.appendChild(row);
     }
+
+    const cell6 = document.createElement("td");
+    const btn1 = document.createElement("button");
+    const btn2 = document.createElement("button");
+    const cellText6 = document.createTextNode(`Chi tiết`);
+    const cellText7 = document.createTextNode(`Xóa`);
+
+    btn1.addEventListener("click", () => {
+      document.getElementById("text").innerHTML = `Tên người dùng: ${
+        user.name
+      }; Tên thang máy: ${lift ? lift.name : ""}; Ghi chú: ${act.note}`;
+      document.getElementById("note").innerHTML = `Sửa ghi chú: `;
+      const inp = document.createElement("input");
+      const btn3 = document.createElement("button");
+      const btnText = document.createTextNode(` Sửa `);
+      btn3.appendChild(btnText);
+      document.getElementById("note").appendChild(inp);
+      document.getElementById("note").appendChild(btn3);
+    });
+
+    btn2.addEventListener("click", () => {
+      confirm("Bạn muốn xóa thông tin này chứ?");
+    });
+
+    btn1.appendChild(cellText6);
+    btn2.appendChild(cellText7);
+    cell6.appendChild(btn1);
+    cell6.appendChild(btn2);
+    row.appendChild(cell6);
 
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
