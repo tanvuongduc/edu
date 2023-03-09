@@ -79,6 +79,7 @@ let actions = [
         from: 1,
         to: 10,
         time: new Date(2023, 0, 2).getTime(),
+        note: 'a',
     },
     {
         id: 2,
@@ -87,6 +88,7 @@ let actions = [
         from: 2,
         to: 10,
         time: new Date(2022, 3, 5).getTime(),
+        note: 'a',
     },
     {
         id: 3,
@@ -95,6 +97,7 @@ let actions = [
         from: 3,
         to: 10,
         time: new Date(2021, 9, 10).getTime(),
+        note: 'a',
     },
     {
         id: 4,
@@ -103,6 +106,7 @@ let actions = [
         from: 4,
         to: 10,
         time: new Date(2023, 1, 20).getTime(),
+        note: 'a',
     },
     {
         id: 5,
@@ -111,6 +115,7 @@ let actions = [
         from: 5,
         to: 10,
         time: new Date(2023, 1, 20).getTime(),
+        note: 'a',
     },
     {
         id: 6,
@@ -119,6 +124,7 @@ let actions = [
         from: 6,
         to: 10,
         time: new Date(2019, 1, 22).getTime(),
+        note: 'a',
     },
     {
         id: 7,
@@ -127,6 +133,7 @@ let actions = [
         from: 7,
         to: 10,
         time: new Date(2023, 1, 28).getTime(),
+        note: 'a',
     },
 ];
 
@@ -165,54 +172,81 @@ let result = actions
 
         // BTVN tạo bảng hiển thị thông tin
         // creating all cells
-        for (let i = 0; i < 1; i++) {
-            // creates a table row
-            const row = document.createElement("tr");
+        // creates a table row
+        const row = document.createElement("tr");
 
-            // Create a <td> element and a text node, make the text
-            // node the contents of the <td>, and put the <td> at
-            // the end of the table row
-            const cell1 = document.createElement("td");
-            const cellText1 = document.createTextNode(`${user.name}`);
-            cell1.appendChild(cellText1);
-            row.appendChild(cell1);
+        // Create a <td> element and a text node, make the text
+        // node the contents of the <td>, and put the <td> at
+        // the end of the table row
+        // const cell1 = document.createElement("td");
+        // const cellText1 = document.createTextNode(`${user.name}`);
+        // cell1.appendChild(cellText1);
+        // row.appendChild(cell1);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+        // // add the row to the end of the table body
+        // tblBody.appendChild(row);
 
-            const cell2 = document.createElement("td");
-            const cellText2 = document.createTextNode(`${lift ? lift.name : ''}`);
-            cell2.appendChild(cellText2);
-            row.appendChild(cell2);
+        // const cell2 = document.createElement("td");
+        // const cellText2 = document.createTextNode(`${lift ? lift.name : ''}`);
+        // cell2.appendChild(cellText2);
+        // row.appendChild(cell2);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+        // // add the row to the end of the table body
+        // tblBody.appendChild(row);
 
-            const cell3 = document.createElement("td");
-            const cellText3 = document.createTextNode(`${act.from}`);
-            cell3.appendChild(cellText3);
-            row.appendChild(cell3);
+        const cell3 = document.createElement("td");
+        const cellText3 = document.createTextNode(`${act.from}`);
+        cell3.appendChild(cellText3);
+        row.appendChild(cell3);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+        // add the row to the end of the table body
+        tblBody.appendChild(row);
 
-            const cell4 = document.createElement("td");
-            const cellText4 = document.createTextNode(`${act.to}`);
-            cell4.appendChild(cellText4);
-            row.appendChild(cell4);
+        const cell4 = document.createElement("td");
+        const cellText4 = document.createTextNode(`${act.to}`);
+        cell4.appendChild(cellText4);
+        row.appendChild(cell4);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
+        // add the row to the end of the table body
+        tblBody.appendChild(row);
 
-            const cell5 = document.createElement("td");
-            const cellText5 = document.createTextNode(`${new Date(act.time).getFullYear()}-${new Date(act.time).getMonth() + 1}-${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()}`);
-            cell5.appendChild(cellText5);
-            row.appendChild(cell5);
+        const cell5 = document.createElement("td");
+        const cellText5 = document.createTextNode(`${new Date(act.time).getFullYear()}-${new Date(act.time).getMonth() + 1}-${new Date(act.time).getDate()} ${new Date(act.time).getHours()} : ${new Date(act.time).getMinutes()}`);
+        cell5.appendChild(cellText5);
+        row.appendChild(cell5);
 
-            // add the row to the end of the table body
-            tblBody.appendChild(row);
-        }
+        // add the row to the end of the table body
+        tblBody.appendChild(row);
 
+        const cell6 = document.createElement("td");
+        const btn1 = document.createElement("button");
+        const btn2 = document.createElement("button");
+        const cellText6 = document.createTextNode(`Chi tiết`);
+        const cellText7 = document.createTextNode(`Xóa`);
+
+        btn1.addEventListener("click", () => {
+            document.getElementById("text").innerHTML = `Tên người dùng: ${user.name}; Tên thang máy: ${lift ? lift.name : ''}; Ghi chú: ${act.note}`;
+            document.getElementById("note").innerHTML = `Sửa ghi chú: `;
+            const inp = document.createElement("input");
+            const btn3 = document.createElement("button");
+            const btnText = document.createTextNode(` Sửa `);
+            btn3.appendChild(btnText);
+            document.getElementById("note").appendChild(inp);
+            document.getElementById("note").appendChild(btn3);
+        });
+
+        btn2.addEventListener("click", () => {
+            confirm("Bạn muốn xóa thông tin này chứ?");
+        });
+
+        btn1.appendChild(cellText6);
+        btn2.appendChild(cellText7);
+        cell6.appendChild(btn1);
+        cell6.appendChild(btn2);
+        row.appendChild(cell6);
+
+        // add the row to the end of the table body
+        tblBody.appendChild(row);
         // put the <tbody> in the <table>
         tbl.appendChild(tblBody);
         // appends <table> into <body>
@@ -222,5 +256,5 @@ let result = actions
     })
 
 // console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
-
+// thêm nút hiển thị người dùng + tên thang máy + ô input note
 
