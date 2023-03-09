@@ -79,6 +79,7 @@ let actions = [
     from: 1,
     to: 10,
     time: new Date(2023, 0, 2).getTime(),
+    // note: 'nguoi ngoai'
   },
   {
     id: 2,
@@ -87,6 +88,7 @@ let actions = [
     from: 2,
     to: 10,
     time: new Date(2022, 3, 5).getTime(),
+    // note: 'cu dan'
   },
   {
     id: 3,
@@ -130,6 +132,10 @@ let actions = [
   },
 ];
 
+
+
+let inputValue = ''; //biến tạm
+
 let container = document.getElementById("container");
 let result = actions
   .filter((act) => {
@@ -140,7 +146,7 @@ let result = actions
     if (a.time < b.time) return -1;
     else return 1;
   })
-  .forEach((act) => {
+  .forEach((act, index) => {
     let user = users.find((u) => u.id == act.userId);
     let lift = lifts.find((l) => l.id == act.liftId);
     const tbl = document.getElementById("tbl");
@@ -175,10 +181,28 @@ let result = actions
       document.getElementById("text").innerHTML = `Tên người dùng: ${user.name
         }; Tên thang máy: ${lift ? lift.name : ""}; Ghi chú: ${act.note ? act.note : 'Chưa có ghi chú'}`;
       document.getElementById("note").innerHTML = `Sửa ghi chú: `;
-      const inp = document.createElement("input");
+      const input = document.createElement("input");
+      input.addEventListener('keyup', (ev) => {
+        inputValue = ev.target.value
+        console.log('111111111111', actions);
+      })
+
       const btn3 = document.createElement("button");
       btn3.innerText = ` Sửa `;
-      document.getElementById("note").appendChild(inp);
+      btn3.addEventListener('click', (ev) => {
+        console.log('222222222222222', ev, inputValue, index, act.id);
+        let rowData = actions.find(_act => { // Tìm ra phần tử có id trùng với id của nút được nhấn
+          return _act.id === act.id
+        })
+        rowData.note = inputValue;
+        // actions[index].note = inputValue;
+        inputValue = '';
+        // console.log  ('33333333333333', actions);
+        document.getElementById("text").innerHTML = `Tên người dùng: ${user.name
+        }; Tên thang máy: ${lift ? lift.name : ""}; Ghi chú: ${act.note ? act.note : 'Chưa có ghi chú'}`;
+        
+      })
+      document.getElementById("note").appendChild(input);
       document.getElementById("note").appendChild(btn3);
     });
 
@@ -195,3 +219,13 @@ let result = actions
     tbl.setAttribute("border", "2");
     tbl.appendChild(tblBody);
   });
+
+
+  test = () => {
+    console.log('aaaaaaaaaaaaaaaaaaa');
+  }
+
+  testKeyboard = (ev) => {
+    console.log('bbbbbbbbbbbbbbbbbbbb', ev);
+    
+  }
