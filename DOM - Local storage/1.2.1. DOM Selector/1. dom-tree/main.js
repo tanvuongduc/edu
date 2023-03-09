@@ -15,6 +15,14 @@
 // let a = document.getElementById('id0')
 // let b = document.getElementsByClassName('title')
 // console.log(a, b);
+ HEAD
+let a = 2;
+let b = 3;
+
+let cat = "love dog";
+let dog = "love cat";
+
+ 
 let users = [
   {
     id: 1,
@@ -219,5 +227,103 @@ let result = actions
     // sets the border attribute of tbl to '2'
     tbl.setAttribute("border", "2");
   });
+  row.setAttribute("id", "row1"+`${act.liftId}`);
+  // Create a <td> element and a text node, make the text
+  // node the contents of the <td>, and put the <td> at
+  // the end of the table row
+  // const cell1 = document.createElement("td");
+  // const cellText1 = document.createTextNode(`${user.name}`);
+  // cell1.appendChild(cellText1);
+  // row.appendChild(cell1);
+
+  // // add the row to the end of the table body
+  // tblBody.appendChild(row);
+
+  const cell2 = document.createElement("td");
+  const cellText2 = document.createTextNode(`${lift ? lift.name : ""}`);
+  cell2.appendChild(cellText2);
+  row.appendChild(cell2);
+
+  // // add the row to the end of the table body
+  tblBody.appendChild(row);
+
+  const cell3 = document.createElement("td");
+  const cellText3 = document.createTextNode(`${act.from}`);
+  cell3.appendChild(cellText3);
+  row.appendChild(cell3);
+
+  // add the row to the end of the table body
+  tblBody.appendChild(row);
+
+  const cell4 = document.createElement("td");
+  const cellText4 = document.createTextNode(`${act.to}`);
+  cell4.appendChild(cellText4);
+  row.appendChild(cell4);
+
+  // add the row to the end of the table body
+  tblBody.appendChild(row);
+
+  const cell5 = document.createElement("td");
+  const cellText5 = document.createTextNode(
+    `${new Date(act.time).getFullYear()}-${
+      new Date(act.time).getMonth() + 1
+    }-${new Date(act.time).getDate()} ${new Date(
+      act.time
+    ).getHours()} : ${new Date(act.time).getMinutes()}`
+  );
+  cell5.appendChild(cellText5);
+  row.appendChild(cell5);
+
+  // add the row to the end of the table body
+  tblBody.appendChild(row);
+
+  const cell6 = document.createElement("td");
+
+  var btn = document.createElement("BUTTON");
+  btn.setAttribute("id", "btn"+`${act.liftId}`);
+  var t = document.createTextNode("CHI TIẾT");
+  btn.appendChild(t);
+
+  var btn1 = document.createElement("BUTTON");
+  btn1.setAttribute("id", "btn1"+`${act.liftId}`);
+  var t1 = document.createTextNode("XOÁ");
+  btn1.appendChild(t1);
+  
+  cell6.appendChild(btn);
+  cell6.appendChild(btn1);
+
+  
+  row.appendChild(cell6);
+
+  
+
+
+// put the <tbody> in the <table>
+tbl.appendChild(tblBody);
+// appends <table> into <body>
+document.body.appendChild(tbl);
+// sets the border attribute of tbl to '2'
+tbl.setAttribute("border", "2");
+document.getElementById("btn"+`${act.liftId}`).onclick = function() {
+  document.getElementById("txt").innerHTML = `${lift.name}`;
+  document.getElementById("txt1").innerHTML ="vào tầng: "+`${act.from}`;
+  document.getElementById("txt2").innerHTML ="ra tầng: "+ `${act.to}`;
+  document.getElementById("txt3").innerHTML =`${new Date(act.time).getFullYear()}-${
+    new Date(act.time).getMonth() + 1
+  }-${new Date(act.time).getDate()} ${new Date(
+    act.time
+  ).getHours()} : ${new Date(act.time).getMinutes()}`;
+};
+document.getElementById("btn1"+`${act.liftId}`).onclick = function() {
+  alert("Bạn có muốn xoá "+ `${lift.name}`);
+};
+document.getElementById("btn1" + `${act.liftId}`).onclick = function() {
+  var row = document.getElementById("row1" + `${act.liftId}`);
+  if (confirm("Bạn có muốn xoá " + `${lift.name}`)) {
+    row.remove();
+  }
+};
+
+
 
 // console.log('aaaaaaaaaaaaaaaaaaaaaaa', result);
