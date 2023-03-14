@@ -1,32 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>DOM Tree</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
     <style>
       #container {
-        display: flex;
+        /* display: flex; */
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-around;
       }
-      #note {
+      #addLift,
+      #addUser,
+      #addAction {
         border: none;
-        outline: none;
       }
     </style>
   </head>
-
   <body>
     <div id="container">
       <div class="flexitem">
         <table id="table" border="1"></table>
       </div>
+      <br />
       <div class="flexitem">
-        <table id="tableDetail" border="1"></table>
+        <select
+          name="selectTable"
+          id="selectTable"
+          onchange="validateSelectBox(this)"
+        >
+          <option value="">-- Chọn bảng cần thêm thông tin --</option>
+          <option value="1">Lifts</option>
+          <option value="2">Users</option>
+          <option value="3">Actions</option>
+        </select>
+        <div id="addInfo"></div>
+      </div>
+      <div class="flexitem">
+        <table id="tableDetail"></table>
       </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
