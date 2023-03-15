@@ -158,9 +158,12 @@ function renderDetail() {
               <p>Tên thang máy: ${lift ? lift.name : ""}</p>
               <p>Vào tầng: ${val.from}</p>
               <p>Ra tầng: ${val.to}</p>
-              <p>Thời gian: năm ${new Date(val.time).getFullYear()} -
-                tháng ${new Date(val.time).getMonth() + 1} -
-                ngày ${new Date(val.time).getDate()}
+              <p>Thời gian: năm ${new Date(val.time).getFullYear()} - 
+                tháng ${new Date(val.time).getMonth() + 1} - 
+                ngày ${new Date(val.time).getDate()} - 
+                giờ ${new Date(val.time).getHours()}:${new Date(
+      val.time
+    ).getMinutes()}
               </p>
               <p>Ghi chú:  ${val.note ? val.note : ""}</p>
               <p>
@@ -279,7 +282,6 @@ function addNote(i) {
   let Note = document.getElementById("Note").value;
   if (Note) {
     listDetail[i].note = Note;
-    console.log((listDetail[i].note = Note));
   }
   document.getElementById("Note").value = "";
   renderDetail();
@@ -313,29 +315,43 @@ function validateSelectBox(obj) {
 }
 
 function getID(val) {
+  var loadId = Math.floor(Math.random() * 100);
+  // var loadId = 6;
   if (val == 1) {
     lifts.map((value, i) => {
-      if (Math.floor(Math.random() * 100) !== value.id) {
-        // console.log(Math.random() * 100 !== value.id);
-        return true;
+      if (loadId !== value.id) {
+        console.log(loadId);
+        return loadId;
+      } else {
+        console.log(loadId);
+        return (loadId = "ID đã tồn tại!!!");
       }
     });
   } else if (val == 2) {
     users.map((value, i) => {
-      if (Math.floor(Math.random() * 100) !== value.id) {
-        // console.log(Math.random() * 100 !== value.id);
-        return true;
+      if (loadId !== value.id) {
+        console.log(loadId);
+        return loadId;
+      } else {
+        console.log(loadId);
+        return (loadId = "ID đã tồn tại!!!");
       }
     });
   } else if (val == 3) {
     actions.map((value, i) => {
-      if (Math.floor(Math.random() * 100) !== value.id) {
-        // console.log(Math.random() * 100 !== value.id);
-        return true;
-      }
+      // if (loadId !== value.id) {
+      //   console.log(loadId);
+      //   return loadId;
+      // } else {
+      //   console.log(loadId);
+      //   return (loadId = "ID đã tồn tại!!!");
+      // }
+      loadId !== value.id ? loadId : (loadId = "Id đã tồn tại!!!");
+         console.log(loadId);
+
     });
   }
-  document.getElementById("iddemo").innerHTML = Math.floor(Math.random() * 100);
+  document.getElementById("iddemo").innerHTML = loadId;
 }
 
 function getTime() {
@@ -344,7 +360,11 @@ function getTime() {
     "-" +
     (new Date().getMonth() + 1) +
     "-" +
-    new Date().getDate();
+    new Date().getDate() +
+    "/" +
+    new Date().getHours() +
+    ":" +
+    new Date().getMinutes();
   document.getElementById("time").innerHTML = time;
 }
 
@@ -352,7 +372,6 @@ function selectedStatus(obj) {
   var options = obj.children;
   for (var i = 0; i < options.length; i++) {
     if (options[i].selected) {
-      console.log(options[i].value);
       return options[i].value;
     }
   }
@@ -362,7 +381,6 @@ function selectedGender(obj) {
   var options = obj.children;
   for (var i = 0; i < options.length; i++) {
     if (options[i].selected) {
-      console.log(options[i].value);
       return options[i].value;
     }
   }
@@ -372,7 +390,6 @@ function selectedUserId(obj) {
   var options = obj.children;
   for (var i = 0; i < options.length; i++) {
     if (options[i].selected) {
-      // console.log(options[i].value);
       return options[i].value;
     }
   }
@@ -382,7 +399,6 @@ function selectedLiftId(obj) {
   var options = obj.children;
   for (var i = 0; i < options.length; i++) {
     if (options[i].selected) {
-      // console.log(options[i].value);
       return options[i].value;
     }
   }
@@ -395,9 +411,9 @@ function addLift() {
     status: document.getElementById("selectStatus").value,
     currentFloor: document.getElementById("liftCurrentFloor").value,
   };
-  console.log(lifts)
+  console.log(lifts);
   lifts.push(newLift);
-  console.log(lifts)
+  console.log(lifts);
   clearLift();
 }
 
@@ -407,9 +423,9 @@ function addUser() {
     name: document.getElementById("userName").value,
     gender: document.getElementById("selectGender").value,
   };
-  console.log(users)
+  console.log(users);
   users.push(newUser);
-  console.log(users)
+  console.log(users);
   clearUser();
 }
 
