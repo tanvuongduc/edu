@@ -179,12 +179,12 @@ function renderDetail() {
 }
 
 function renderAddInfo(val) {
-  var list = ``;
+  let list = ``;
   if (val == 1) {
     list += `<tr>
         <td>
           <p>id: <label id="iddemo"></label> <button onclick="getID(${val})">Get ID</button></p>
-          <p>name: <input type="text" id="liftName" /></p>
+          <p>name: <input type="text" id="liftName"/></p>
           <p>status: 
           <select
             name="selectStatus"
@@ -216,7 +216,7 @@ function renderAddInfo(val) {
           >
             <option value="" >-- Chọn giới tính --</option>
             <option value="true" >Nam</option>
-            <option value="false">Nu</option>
+            <option value="false">Nữ</option>
           </select>
           </p>
           <p>
@@ -255,7 +255,9 @@ function renderAddInfo(val) {
           </p>
           <p>from: <input type="text" id="from" /></p>
           <p>to: <input type="text" id="to" /></p>
-          <p>time: <label id="time"></label> <button onclick="getTime()">Get Time</button></p>
+          <p>time: 
+            <input type="datetime-local" name="time" id="time" />
+          </p>
           <p>note: <input type="text" id="note" /></p>
           <p>
             <button id="btn-add-lift" onclick="addAction()">Add Action</button> || 
@@ -307,7 +309,7 @@ function deleteRow(i) {
 
 function validateSelectBox(obj) {
   var options = obj.children;
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     if (options[i].selected) {
       renderAddInfo(options[i].value);
     }
@@ -315,8 +317,8 @@ function validateSelectBox(obj) {
 }
 
 function getID(val) {
-  var loadId = Math.floor(Math.random() * 100);
-  // var loadId = 6;
+  let loadId = Math.floor(Math.random() * 100);
+  // let loadId = 1;
   if (val == 1) {
     lifts.map((value, i) => {
       if (loadId !== value.id) {
@@ -327,7 +329,8 @@ function getID(val) {
         return (loadId = "ID đã tồn tại!!!");
       }
     });
-  } else if (val == 2) {
+  }
+  if (val == 2) {
     users.map((value, i) => {
       if (loadId !== value.id) {
         console.log(loadId);
@@ -337,7 +340,8 @@ function getID(val) {
         return (loadId = "ID đã tồn tại!!!");
       }
     });
-  } else if (val == 3) {
+  }
+  if (val == 3) {
     actions.map((value, i) => {
       // if (loadId !== value.id) {
       //   console.log(loadId);
@@ -347,30 +351,15 @@ function getID(val) {
       //   return (loadId = "ID đã tồn tại!!!");
       // }
       loadId !== value.id ? loadId : (loadId = "Id đã tồn tại!!!");
-         console.log(loadId);
-
+      console.log(loadId);
     });
   }
   document.getElementById("iddemo").innerHTML = loadId;
 }
 
-function getTime() {
-  var time =
-    new Date().getFullYear() +
-    "-" +
-    (new Date().getMonth() + 1) +
-    "-" +
-    new Date().getDate() +
-    "/" +
-    new Date().getHours() +
-    ":" +
-    new Date().getMinutes();
-  document.getElementById("time").innerHTML = time;
-}
-
 function selectedStatus(obj) {
   var options = obj.children;
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     if (options[i].selected) {
       return options[i].value;
     }
@@ -379,7 +368,7 @@ function selectedStatus(obj) {
 
 function selectedGender(obj) {
   var options = obj.children;
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     if (options[i].selected) {
       return options[i].value;
     }
@@ -388,7 +377,7 @@ function selectedGender(obj) {
 
 function selectedUserId(obj) {
   var options = obj.children;
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     if (options[i].selected) {
       return options[i].value;
     }
@@ -397,7 +386,7 @@ function selectedUserId(obj) {
 
 function selectedLiftId(obj) {
   var options = obj.children;
-  for (var i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     if (options[i].selected) {
       return options[i].value;
     }
@@ -405,43 +394,68 @@ function selectedLiftId(obj) {
 }
 
 function addLift() {
-  var newLift = {
-    id: document.getElementById("iddemo").innerHTML,
-    name: document.getElementById("liftName").value,
-    status: document.getElementById("selectStatus").value,
-    currentFloor: document.getElementById("liftCurrentFloor").value,
-  };
-  console.log(lifts);
-  lifts.push(newLift);
-  console.log(lifts);
-  clearLift();
+  let newLift = {};
+  if (
+    document.getElementById("iddemo").innerHTML !== "" &&
+    document.getElementById("liftName").value !== ""
+  ) {
+    newLift = {
+      id: document.getElementById("iddemo").innerHTML,
+      name: document.getElementById("liftName").value,
+      status: document.getElementById("selectStatus").value,
+      currentFloor: document.getElementById("liftCurrentFloor").value,
+    };
+    console.log(lifts);
+    lifts.push(newLift);
+    console.log(lifts);
+    clearLift();
+  } else {
+    alert("Thieu thong tin!!!");
+  }
 }
 
 function addUser() {
-  var newUser = {
-    id: document.getElementById("iddemo").innerHTML,
-    name: document.getElementById("userName").value,
-    gender: document.getElementById("selectGender").value,
-  };
-  console.log(users);
-  users.push(newUser);
-  console.log(users);
-  clearUser();
+  let newUser = {};
+  if (
+    document.getElementById("iddemo").innerHTML !== "" &&
+    document.getElementById("userName").value !== ""
+  ) {
+    newUser = {
+      id: document.getElementById("iddemo").innerHTML,
+      name: document.getElementById("userName").value,
+      gender: document.getElementById("selectGender").value,
+    };
+    console.log(users);
+    users.push(newUser);
+    console.log(users);
+    clearUser();
+  } else {
+    alert("Thieu thong tin!!!");
+  }
 }
 
 function addAction() {
-  var newAction = {
-    id: document.getElementById("iddemo").innerHTML,
-    userId: document.getElementById("selectUserId").value,
-    liftId: document.getElementById("selectLiftId").value,
-    from: document.getElementById("from").value,
-    to: document.getElementById("to").value,
-    time: document.getElementById("time").innerHTML,
-    note: document.getElementById("note").value,
-  };
-  actions.push(newAction);
-  render();
-  clearAction();
+  let newAction = {};
+  if (
+    document.getElementById("iddemo").innerHTML !== "" &&
+    document.getElementById("selectUserId").value !== "" &&
+    document.getElementById("selectLiftId").value !== ""
+  ) {
+    newAction = {
+      id: document.getElementById("iddemo").innerHTML,
+      userId: document.getElementById("selectUserId").value,
+      liftId: document.getElementById("selectLiftId").value,
+      from: document.getElementById("from").value,
+      to: document.getElementById("to").value,
+      time: document.getElementById("time").value,
+      note: document.getElementById("note").value,
+    };
+    actions.push(newAction);
+    render();
+    clearAction();
+  } else {
+    alert("Thieu thong tin!!!");
+  }
 }
 
 function clearLift() {
@@ -472,3 +486,20 @@ function clearAction() {
     note: (document.getElementById("note").value = ""),
   };
 }
+
+
+// function getTime() {
+//   var time =
+//     new Date().getFullYear() +
+//     "-" +
+//     (new Date().getMonth() + 1) +
+//     "-" +
+//     new Date().getDate() +
+//     "/" +
+//     new Date().getHours() +
+//     ":" +
+//     new Date().getMinutes();
+//   document.getElementById("time").innerHTML = time;
+// }
+//   <label id="time"></label> 
+//   <button onclick="getTime()">Get Time</button> 
