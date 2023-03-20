@@ -79,6 +79,7 @@ let actions = [
     from: 1,
     to: 10,
     time: new Date(2023, 0, 2).getTime(),
+
   },
   {
     id: 2,
@@ -176,8 +177,19 @@ let result = actions
         }; Tên thang máy: ${lift ? lift.name : ""}; Ghi chú: ${act.note ? act.note : 'Chưa có ghi chú'}`;
       document.getElementById("note").innerHTML = `Sửa ghi chú: `;
       const inp = document.createElement("input");
+      inp.addEventListener('keyup',(ev) => {
+        actions[index].note = ev.target.value
+
+      })
       const btn3 = document.createElement("button");
       btn3.innerText = ` Sửa `;
+      btn3.addEventListener('click',(ev)=>{
+        actions[index].note = inputvalue;
+        inputvalue='';
+        document.getElementById("text").innerHTML = `Tên người dùng: ${user.name
+        }; Tên thang máy: ${lift ? lift.name : ""}; Ghi chú: ${act.note ? act.note : 'Chưa có ghi chú'}`;
+      document.getElementById("note").innerHTML = `Sửa ghi chú: `;
+      })
       document.getElementById("note").appendChild(inp);
       document.getElementById("note").appendChild(btn3);
     });

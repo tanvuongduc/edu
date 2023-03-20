@@ -13,8 +13,8 @@ console.log(r);
 // random between 1 and 10
 console.log(r * 10);
 console.log(Math.round(r * 10));
-console.log(Math.ceil(r * 10));
-console.log(Math.floor(r * 10));
+console.log(Math.ceil(r * 10));// làm tròn lên
+console.log(Math.floor(r * 10));// tròn xuống
 
 console.log(Math.min(1, 2, 1, 2, 3));
 console.log(Math.max(1, 2, 1, 2, 3));
