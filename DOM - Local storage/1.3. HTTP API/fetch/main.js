@@ -1,6 +1,9 @@
 // what is callback
 // setTimeout(() => console.log('hello'), 1000);
 
+// let 
+// let obj2 = {...obj};
+// let obj3 = JSON.parse(JSON.stringify(obj))
 
 // using fetch api
 function readAllTodo(callback) {
