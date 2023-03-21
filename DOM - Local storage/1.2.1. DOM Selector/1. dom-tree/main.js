@@ -373,70 +373,76 @@ let newAct = {};
 
 let container = document.getElementById('container');
 
-let table = document.createElement('table');
-let titles = document.createElement('tr');
 
-let noTitle = document.createElement('th');
-noTitle.innerText = 'Số thứ tự'
-titles.appendChild(noTitle);
-let userNameTile = document.createElement('th');
 
-userNameTile.innerText = 'Tên người dùng';
-titles.appendChild(userNameTile);
+function render() {
+  container.innerHTML = null;
+  let table = document.createElement('table');
+  let titles = document.createElement('tr');
 
-let liftTile = document.createElement('th');
-liftTile.innerText = 'Tên thang máy';
-titles.appendChild(liftTile);
+  let noTitle = document.createElement('th');
+  noTitle.innerText = 'Số thứ tự'
+  titles.appendChild(noTitle);
+  let userNameTile = document.createElement('th');
 
-let fromTile = document.createElement('th');
-fromTile.innerText = 'Vào tầng';
-titles.appendChild(fromTile);
+  userNameTile.innerText = 'Tên người dùng';
+  titles.appendChild(userNameTile);
 
-let toTitle = document.createElement('th');
-toTitle.innerText = 'Ra tầng';
-titles.appendChild(toTitle);
+  let liftTile = document.createElement('th');
+  liftTile.innerText = 'Tên thang máy';
+  titles.appendChild(liftTile);
 
-let timeTitle = document.createElement('th');
-timeTitle.innerText = 'Thời gian';
-titles.appendChild(timeTitle);
-table.appendChild(titles);
+  let fromTile = document.createElement('th');
+  fromTile.innerText = 'Vào tầng';
+  titles.appendChild(fromTile);
 
-actions.forEach((act, i) => {
-  let user = users.find(u => {
-    return u.id == act.userId;
-  })
-  let lift = lifts.find(l => {
-    return l.id == act.liftId;
-  })
-  let row = document.createElement('tr');
+  let toTitle = document.createElement('th');
+  toTitle.innerText = 'Ra tầng';
+  titles.appendChild(toTitle);
 
-  let col1 = document.createElement('td');
-  col1.innerText = i + 1;
-  row.appendChild(col1);
-  let col2 = document.createElement('td');
-  col2.innerText = user.name;
-  row.appendChild(col2);
+  let timeTitle = document.createElement('th');
+  timeTitle.innerText = 'Thời gian';
+  titles.appendChild(timeTitle);
+  table.appendChild(titles);
+  actions.forEach((act, i) => {
+    let user = users.find(u => {
+      return u.id == act.userId;
+    })
+    let lift = lifts.find(l => {
+      return l.id == act.liftId;
+    })
+    let row = document.createElement('tr');
 
-  let col3 = document.createElement('td');
-  col3.innerText = lift.name;
-  row.appendChild(col3);
+    let col1 = document.createElement('td');
+    col1.innerText = i + 1;
+    row.appendChild(col1);
+    let col2 = document.createElement('td');
+    col2.innerText = user.name;
+    row.appendChild(col2);
 
-  let col4 = document.createElement('td');
-  col4.innerText = act.from;
-  row.appendChild(col4);
+    let col3 = document.createElement('td');
+    col3.innerText = lift.name;
+    row.appendChild(col3);
 
-  let col5 = document.createElement('td');
-  col5.innerText = act.to;
-  row.appendChild(col5);
+    let col4 = document.createElement('td');
+    col4.innerText = act.from;
+    row.appendChild(col4);
 
-  let col6 = document.createElement('td');
-  // col6.innerText = act.time;
-  let date = new Date(act.time);
-  let dateString = `${date.getFullYear()} - ${date.getMonth() + 1} - ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
-  col6.innerText = dateString;
-  row.appendChild(col6);
-  table.appendChild(row);
-});
+    let col5 = document.createElement('td');
+    col5.innerText = act.to;
+    row.appendChild(col5);
+
+    let col6 = document.createElement('td');
+    // col6.innerText = act.time;
+    let date = new Date(act.time);
+    let dateString = `${date.getFullYear()} - ${date.getMonth() + 1} - ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
+    col6.innerText = dateString;
+    row.appendChild(col6);
+    table.appendChild(row);
+  });
+
+  container.appendChild(table);
+}
 
 let nameSelect = document.getElementById('nameSelect')
 users.forEach(user => {
@@ -463,4 +469,25 @@ onNameChange = (ev) => {
   newAct.userId = +ev.target.value;
   console.log(11111111111111, newAct);
 }
-container.appendChild(table);
+
+let fromInput = document.getElementById('fromInput');
+fromInput.addEventListener('keyup', (ev) => {
+  newAct.from = +ev.target.value;
+  console.log(11111111111111, newAct);
+})
+let toInput = document.getElementById('toInput');
+toInput.addEventListener('keyup', (ev) => {
+  newAct.to = +ev.target.value;
+  console.log(11111111111111, newAct);
+})
+
+onSave = () => {
+  newAct.id = Math.random() * 1000;
+  newAct.time = (new Date()).getTime();
+  actions.push(newAct);
+  render();
+  newAct = {};
+}
+
+render();
+
