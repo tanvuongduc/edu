@@ -115,5 +115,8 @@ let ship2 = new Ship('Diesel', 'Metal', 100)
 console.log('aaaaaaaaaaaaaaa', ship1, ship2);
 ship1.Start('auto');
 console.log('bbbbbbbbbbbbbbb', ship1, ship2);
+let t = new Date()
+t.getDate()
+
 
 
