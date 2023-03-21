@@ -116,11 +116,11 @@ const listDetail = [];
 
 function render() {
   let list = `<tr>
-            <th>ID</th>
-            <th>Vào tầng</th>
-            <th>Ra tầng</th>
-            <th>Thời gian</th>
-            <th>Tùy chọn</th>
+            <th class="width-30">ID</th>
+            <th class="width-70">Vào tầng</th>
+            <th class="width-70">Ra tầng</th>
+            <th class="width-100">Thời gian</th>
+            <th class="width-280">Tùy chọn</th>
         </tr>`;
 
   actions.map((a, i) => {
@@ -134,8 +134,8 @@ function render() {
               ${new Date(a.time).getDate()}
           </td>
             <td>
-              <button id="btn-detail" onclick="addDetail(${i})">Detail</button>
-              <button id="btn-delete" onclick="deleteRow(${i})">Delete</button>
+              <button id="btn-detail" class="custom-btn btn-9" onclick="addDetail(${i})">Detail</button> ||
+              <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${i})">Delete</button>
             </td>
           </tr>`;
   });
@@ -326,19 +326,16 @@ function getID(val) {
         return loadId;
       } else {
         console.log(loadId);
-        return (loadId = "ID đã tồn tại!!!");
+        return (loadId = "ID " + `${loadId}` + " đã tồn tại!!!");
       }
     });
   }
   if (val == 2) {
     users.map((value, i) => {
-      if (loadId !== value.id) {
-        console.log(loadId);
-        return loadId;
-      } else {
-        console.log(loadId);
-        return (loadId = "ID đã tồn tại!!!");
-      }
+      loadId !== value.id
+        ? loadId
+        : (loadId = "ID " + `${loadId}` + " đã tồn tại!!!");
+      console.log(loadId);
     });
   }
   if (val == 3) {
@@ -350,7 +347,9 @@ function getID(val) {
       //   console.log(loadId);
       //   return (loadId = "ID đã tồn tại!!!");
       // }
-      loadId !== value.id ? loadId : (loadId = "Id đã tồn tại!!!");
+      loadId !== value.id
+        ? loadId
+        : (loadId = "ID " + `${loadId}` + " đã tồn tại!!!");
       console.log(loadId);
     });
   }
@@ -487,7 +486,6 @@ function clearAction() {
   };
 }
 
-
 // function getTime() {
 //   var time =
 //     new Date().getFullYear() +
@@ -501,5 +499,5 @@ function clearAction() {
 //     new Date().getMinutes();
 //   document.getElementById("time").innerHTML = time;
 // }
-//   <label id="time"></label> 
-//   <button onclick="getTime()">Get Time</button> 
+//   <label id="time"></label>
+//   <button onclick="getTime()">Get Time</button>
