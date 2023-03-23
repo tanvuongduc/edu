@@ -280,33 +280,6 @@ let users = [
     gender: true,
   },
 ];
-let lifts = [
-  {
-    id: "1",
-    name: "Thang máy 1",
-    status: true,
-    currentFloor: 1,
-  },
-  {
-    id: "2",
-    name: "Thang máy 2",
-    status: false,
-    currentFloor: 15,
-  },
-  {
-    id: "3",
-    name: "Thang máy 3",
-    status: true,
-    currentFloor: 10,
-  },
-  {
-    id: "4",
-    name: "Thang máy 4",
-    status: true,
-    currentFloor: 19,
-  },
-];
-
 let actions = [
   {
     id: 1,
@@ -333,6 +306,7 @@ let actions = [
     from: 3,
     to: 10,
     time: new Date(2021, 9, 10).getTime(),
+    note: "",
   },
   {
     id: 4,
@@ -341,6 +315,7 @@ let actions = [
     from: 4,
     to: 10,
     time: new Date(2023, 1, 20).getTime(),
+    note: "",
   },
   {
     id: 5,
@@ -349,6 +324,7 @@ let actions = [
     from: 5,
     to: 10,
     time: new Date(2023, 1, 20).getTime(),
+    note: "",
   },
   {
     id: 6,
@@ -357,6 +333,7 @@ let actions = [
     from: 6,
     to: 10,
     time: new Date(2019, 1, 22).getTime(),
+    note: "",
   },
   {
     id: 7,
@@ -365,6 +342,7 @@ let actions = [
     from: 7,
     to: 10,
     time: new Date(2023, 1, 28).getTime(),
+    note: "",
   },
 ];
 
