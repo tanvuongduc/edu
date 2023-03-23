@@ -134,8 +134,12 @@ function render() {
               ${new Date(a.time).getDate()}
           </td>
             <td>
-              <button id="btn-detail" class="custom-btn btn-9" onclick="addDetail(${i})">Detail</button> ||
-              <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${i})">Delete</button>
+              <button id="btn-detail" class="custom-btn btn-9" onclick="addDetail(${
+                a.id
+              })">Detail</button> ||
+              <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${
+                a.id
+              })">Delete</button>
             </td>
           </tr>`;
   });
@@ -269,15 +273,30 @@ function renderAddInfo(val) {
   document.getElementById("addInfo").innerHTML = list;
 }
 
-function addDetail(i) {
+function addDetail(actionId) {
+  console.log(actionId);
+  let action = actions.find((a, i) => {
+    return a.id == actionId;
+  });
+  console.log(action);
   if ((listDetail.length = 0)) {
-    listDetail.unshift(actions[i]);
+    listDetail.unshift(action);
     renderDetail();
   } else {
     listDetail.pop();
-    listDetail.unshift(actions[i]);
+    listDetail.unshift(action);
     renderDetail();
   }
+  console.log(listDetail);
+  // by index
+  // if ((listDetail.length = 0)) {
+  //   listDetail.unshift(actions[i]);
+  //   renderDetail();
+  // } else {
+  //   listDetail.pop();
+  //   listDetail.unshift(actions[i]);
+  //   renderDetail();
+  // }
 }
 
 function addNote(i) {
@@ -294,7 +313,7 @@ function clearList(i) {
   renderDetail();
 }
 
-function deleteRow(i) {
+function deleteRow(actionId) {
   actions.splice(i, 1);
   render();
   // if (listDetail.length > 0) {
@@ -340,13 +359,6 @@ function getID(val) {
   }
   if (val == 3) {
     actions.map((value, i) => {
-      // if (loadId !== value.id) {
-      //   console.log(loadId);
-      //   return loadId;
-      // } else {
-      //   console.log(loadId);
-      //   return (loadId = "ID đã tồn tại!!!");
-      // }
       loadId !== value.id
         ? loadId
         : (loadId = "ID " + `${loadId}` + " đã tồn tại!!!");
@@ -435,6 +447,7 @@ function addUser() {
 
 function addAction() {
   let newAction = {};
+
   if (
     document.getElementById("iddemo").innerHTML !== "" &&
     document.getElementById("selectUserId").value !== "" &&
@@ -449,11 +462,23 @@ function addAction() {
       time: document.getElementById("time").value,
       note: document.getElementById("note").value,
     };
+    if (newAction.time == "") {
+      newAction.time =
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1) +
+        "-" +
+        new Date().getDate() +
+        "/" +
+        new Date().getHours() +
+        ":" +
+        new Date().getMinutes();
+    }
     actions.push(newAction);
     render();
     clearAction();
   } else {
-    alert("Thieu thong tin!!!");
+    alert("Thiếu thông tin!!!");
   }
 }
 
@@ -486,18 +511,97 @@ function clearAction() {
   };
 }
 
-// function getTime() {
-//   var time =
-//     new Date().getFullYear() +
-//     "-" +
-//     (new Date().getMonth() + 1) +
-//     "-" +
-//     new Date().getDate() +
-//     "/" +
-//     new Date().getHours() +
-//     ":" +
-//     new Date().getMinutes();
-//   document.getElementById("time").innerHTML = time;
-// }
-//   <label id="time"></label>
-//   <button onclick="getTime()">Get Time</button>
+// switcher JS
+const styleSwitcherToggle = document.querySelector(".style-switcher-toggler");
+styleSwitcherToggle.addEventListener("click", () => {
+  document.querySelector(".style-switcher").classList.toggle("open");
+});
+// hide style - switcher on scroll
+window.addEventListener("scroll", () => {
+  if (document.querySelector(".style-switcher").classList.contains("open")) {
+    document.querySelector(".style-switcher").classList.remove("open");
+  }
+});
+
+function filterByTime() {
+  const arrTime = document.getElementsByClassName("fil-time");
+  let list = `<tr>
+            <th class="width-30">ID</th>
+            <th class="width-70">Vào tầng</th>
+            <th class="width-70">Ra tầng</th>
+            <th class="width-100">Thời gian</th>
+            <th class="width-280">Tùy chọn</th>
+        </tr>`;
+  for (let i = 0; i < arrTime.length; i++) {
+    if (arrTime[i].checked) {
+      let action = actions.filter((a) => {
+        let time = new Date(a.time).getFullYear();
+        return time >= arrTime[i].value;
+      });
+      action.map((a, i) => {
+        list += `<tr>
+                <td>${a.id}</td>
+                <td>${a.from}</td>
+                <td>${a.to}</td>
+                <td>
+                  ${new Date(a.time).getFullYear()} -
+                  ${new Date(a.time).getMonth() + 1} -
+                  ${new Date(a.time).getDate()}
+              </td>
+                <td>
+                  <button id="btn-detail" class="custom-btn btn-9" onclick="addDetail(${
+                    a.id
+                  })">Detail</button> ||
+                  <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${
+                    a.id
+                  })">Delete</button>
+                </td>
+              </tr>`;
+      });
+    }
+  }
+  document.getElementById("table").innerHTML = list;
+}
+
+function filterByStatus() {
+  const arrStatus = document.getElementsByClassName("fil-status");
+  let list = `<tr>
+            <th class="width-30">ID</th>
+            <th class="width-70">Vào tầng</th>
+            <th class="width-70">Ra tầng</th>
+            <th class="width-100">Thời gian</th>
+            <th class="width-280">Tùy chọn</th>
+          </tr>`;
+  for (let i = 0; i < arrStatus.length; i++) {
+    if (arrStatus[i].checked) {
+      let action = actions.filter((a, index) => {
+        let lift = lifts.find((lif) => {
+          if (lif.id == a.liftId) return true; //${lift.status}
+        });
+        let status = lift.status;
+        return status.toString() == arrStatus[i].value;
+      });
+      action.map((a, index) => {
+        list += `<tr>
+                <td>${a.id}</td>
+                <td>${a.from}</td>
+                <td>${a.to}</td>
+                <td>
+                  ${new Date(a.time).getFullYear()} -
+                  ${new Date(a.time).getMonth() + 1} -
+                  ${new Date(a.time).getDate()}
+              </td>
+                <td>
+                  <button id="btn-detail" class="custom-btn btn-9" onclick="addDetail(${
+                    a.id
+                  })">Detail</button> ||
+                  <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${
+                    a.id
+                  })">Delete</button>
+                </td>
+              </tr>`;
+      });
+    }
+  }
+  document.getElementById("table").innerHTML = list;
+}
