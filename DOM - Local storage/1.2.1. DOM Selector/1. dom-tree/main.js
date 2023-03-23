@@ -489,5 +489,5 @@ onSave = () => {
   newAct = {};
 }
 
-render();
+render(); 
 
