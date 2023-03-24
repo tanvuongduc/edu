@@ -274,11 +274,10 @@ function renderAddInfo(val) {
 }
 
 function addDetail(actionId) {
-  console.log(actionId);
   let action = actions.find((a, i) => {
     return a.id == actionId;
   });
-  console.log(action);
+
   if ((listDetail.length = 0)) {
     listDetail.unshift(action);
     renderDetail();
@@ -287,16 +286,6 @@ function addDetail(actionId) {
     listDetail.unshift(action);
     renderDetail();
   }
-  console.log(listDetail);
-  // by index
-  // if ((listDetail.length = 0)) {
-  //   listDetail.unshift(actions[i]);
-  //   renderDetail();
-  // } else {
-  //   listDetail.pop();
-  //   listDetail.unshift(actions[i]);
-  //   renderDetail();
-  // }
 }
 
 function addNote(i) {
@@ -314,16 +303,12 @@ function clearList(i) {
 }
 
 function deleteRow(actionId) {
-  actions.splice(i, 1);
-  render();
-  // if (listDetail.length > 0) {
-  //   listDetail.map((val, index) => {
-  //     if (val.id == i) {
-  //       listDetail.splice(index, 1);
-  //     }
-  //   });
-  //   renderDetail();
-  // }
+  actions.map((a, i) => {
+    if (a.id == actionId) {
+      actions.splice(i, 1);
+      render();
+    }
+  });
 }
 
 function validateSelectBox(obj) {
