@@ -115,6 +115,7 @@ let actions = [
 const listDetail = [];
 
 function render() {
+  const verify = 0;
   let list = `<tr>
             <th class="width-30">ID</th>
             <th class="width-70">Vào tầng</th>
@@ -139,7 +140,7 @@ function render() {
               })">Detail</button> ||
               <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${
                 a.id
-              })">Delete</button>
+              }, ${verify})">Delete</button>
             </td>
           </tr>`;
   });
@@ -302,13 +303,30 @@ function clearList(i) {
   renderDetail();
 }
 
-function deleteRow(actionId) {
-  actions.map((a, i) => {
-    if (a.id == actionId) {
-      actions.splice(i, 1);
-      render();
-    }
-  });
+function deleteRow(actionId, verify) {
+  console.log(verify);
+  if (verify == 0) {
+    actions.map((a, i) => {
+      if (a.id == actionId) {
+        actions.splice(i, 1);
+        render();
+      }
+    });
+  } else if (verify == 1) {
+    actions.map((a, i) => {
+      if (a.id == actionId) {
+        actions.splice(i, 1);
+        filterByTime();
+      }
+    });
+  } else {
+    actions.map((a, i) => {
+      if (a.id == actionId) {
+        actions.splice(i, 1);
+        filterByStatus();
+      }
+    });
+  }
 }
 
 function validateSelectBox(obj) {
@@ -510,6 +528,8 @@ window.addEventListener("scroll", () => {
 
 function filterByTime() {
   const arrTime = document.getElementsByClassName("fil-time");
+  const verify = 1;
+
   let list = `<tr>
             <th class="width-30">ID</th>
             <th class="width-70">Vào tầng</th>
@@ -539,7 +559,7 @@ function filterByTime() {
                   })">Detail</button> ||
                   <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${
                     a.id
-                  })">Delete</button>
+                  }, ${verify})">Delete</button>
                 </td>
               </tr>`;
       });
@@ -550,6 +570,7 @@ function filterByTime() {
 
 function filterByStatus() {
   const arrStatus = document.getElementsByClassName("fil-status");
+  const verify = 2;
   let list = `<tr>
             <th class="width-30">ID</th>
             <th class="width-70">Vào tầng</th>
@@ -582,7 +603,7 @@ function filterByStatus() {
                   })">Detail</button> ||
                   <button id="btn-delete" class="custom-btn btn-13" onclick="deleteRow(${
                     a.id
-                  })">Delete</button>
+                  }, ${verify})">Delete</button>
                 </td>
               </tr>`;
       });
@@ -590,3 +611,4 @@ function filterByStatus() {
   }
   document.getElementById("table").innerHTML = list;
 }
+
