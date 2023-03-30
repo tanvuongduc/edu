@@ -21,7 +21,6 @@
 // let cat = "love dog";
 // let dog = "love cat";
 
-
 // let users = [
 //   {
 //     id: 1,
@@ -132,8 +131,6 @@
 //   },
 // ];
 
-
-
 // let inputValue = ''; //biến tạm
 
 // let container = document.getElementById("container");
@@ -219,7 +216,6 @@
 //     tbl.setAttribute("border", "2");
 //     tbl.appendChild(tblBody);
 //   });
-
 
 //   test = () => {
 //     console.log('aaaaaaaaaaaaaaaaaaa');
@@ -368,74 +364,74 @@ let actions = [
   },
 ];
 
-
 let newAct = {};
 
-let container = document.getElementById('container');
-
-
+let container = document.getElementById("container");
 
 function render() {
   container.innerHTML = null;
-  let table = document.createElement('table');
-  let titles = document.createElement('tr');
+  let table = document.createElement("table");
+  let titles = document.createElement("tr");
 
-  let noTitle = document.createElement('th');
-  noTitle.innerText = 'Số thứ tự'
+  let noTitle = document.createElement("th");
+  noTitle.innerText = "Số thứ tự";
   titles.appendChild(noTitle);
-  let userNameTile = document.createElement('th');
+  let userNameTile = document.createElement("th");
 
-  userNameTile.innerText = 'Tên người dùng';
+  userNameTile.innerText = "Tên người dùng";
   titles.appendChild(userNameTile);
 
-  let liftTile = document.createElement('th');
-  liftTile.innerText = 'Tên thang máy';
+  let liftTile = document.createElement("th");
+  liftTile.innerText = "Tên thang máy";
   titles.appendChild(liftTile);
 
-  let fromTile = document.createElement('th');
-  fromTile.innerText = 'Vào tầng';
+  let fromTile = document.createElement("th");
+  fromTile.innerText = "Vào tầng";
   titles.appendChild(fromTile);
 
-  let toTitle = document.createElement('th');
-  toTitle.innerText = 'Ra tầng';
+  let toTitle = document.createElement("th");
+  toTitle.innerText = "Ra tầng";
   titles.appendChild(toTitle);
 
-  let timeTitle = document.createElement('th');
-  timeTitle.innerText = 'Thời gian';
+  let timeTitle = document.createElement("th");
+  timeTitle.innerText = "Thời gian";
   titles.appendChild(timeTitle);
   table.appendChild(titles);
-  actions.forEach((act, i) => {
-    let user = users.find(u => {
-      return u.id == act.userId;
-    })
-    let lift = lifts.find(l => {
-      return l.id == act.liftId;
-    })
-    let row = document.createElement('tr');
 
-    let col1 = document.createElement('td');
+  actions.forEach((act, i) => {
+    let user = users.find((u) => {
+      return u.id == act.userId;
+    });
+    let lift = lifts.find((l) => {
+      return l.id == act.liftId;
+    });
+    let row = document.createElement("tr");
+
+    let col1 = document.createElement("td");
     col1.innerText = i + 1;
     row.appendChild(col1);
-    let col2 = document.createElement('td');
+    let col2 = document.createElement("td");
     col2.innerText = user.name;
     row.appendChild(col2);
 
-    let col3 = document.createElement('td');
+    let col3 = document.createElement("td");
     col3.innerText = lift.name;
     row.appendChild(col3);
 
-    let col4 = document.createElement('td');
+    let col4 = document.createElement("td");
     col4.innerText = act.from;
     row.appendChild(col4);
 
-    let col5 = document.createElement('td');
+    let col5 = document.createElement("td");
     col5.innerText = act.to;
     row.appendChild(col5);
 
-    let col6 = document.createElement('td');
+    let col6 = document.createElement("td");
     // col6.innerText = act.time;
     let date = new Date(act.time);
-    let dateString = `${date.getFullYear()} - ${date.getMonth() + 1} - ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
+    let dateString = `${date.getFullYear()} - ${
+      date.getMonth() + 1
+    } - ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
     col6.innerText = dateString;
     row.appendChild(col6);
     table.appendChild(row);
@@ -444,50 +440,127 @@ function render() {
   container.appendChild(table);
 }
 
-let nameSelect = document.getElementById('nameSelect')
-users.forEach(user => {
-  let opt = document.createElement('option');
+let nameSelect = document.getElementById("nameSelect");
+users.forEach((user) => {
+  let opt = document.createElement("option");
   opt.value = user.id;
   opt.innerText = user.name;
   nameSelect.appendChild(opt);
-})
+});
 
-let liftSelect = document.getElementById('liftSelect')
-liftSelect.addEventListener('change', (ev) => {
+let liftSelect = document.getElementById("liftSelect");
+liftSelect.addEventListener("change", (ev) => {
   newAct.liftId = +ev.target.value;
   console.log(11111111111111, newAct);
-})
-lifts.forEach(lift => {
-  let opt = document.createElement('option');
+});
+lifts.forEach((lift) => {
+  let opt = document.createElement("option");
   opt.value = lift.id;
   opt.innerText = lift.name;
   liftSelect.appendChild(opt);
-})
+});
 
-console.log('aaaaaaaaaaaaaaaaaaa', nameSelect.value);
+console.log("aaaaaaaaaaaaaaaaaaa", nameSelect.value);
 onNameChange = (ev) => {
   newAct.userId = +ev.target.value;
   console.log(11111111111111, newAct);
-}
+};
 
-let fromInput = document.getElementById('fromInput');
-fromInput.addEventListener('keyup', (ev) => {
+let fromInput = document.getElementById("fromInput");
+fromInput.addEventListener("keyup", (ev) => {
   newAct.from = +ev.target.value;
   console.log(11111111111111, newAct);
-})
-let toInput = document.getElementById('toInput');
-toInput.addEventListener('keyup', (ev) => {
+});
+let toInput = document.getElementById("toInput");
+toInput.addEventListener("keyup", (ev) => {
   newAct.to = +ev.target.value;
   console.log(11111111111111, newAct);
-})
+});
 
 onSave = () => {
   newAct.id = Math.random() * 1000;
-  newAct.time = (new Date()).getTime();
+  newAct.time = new Date().getTime();
   actions.push(newAct);
   render();
   newAct = {};
+};
+
+let container2 = document.getElementById("container2");
+function render2() {
+  container.innerHTML = null;
+  let table2 = document.createElement("table");
+  let titles = document.createElement("tr");
+
+  let fromTile = document.createElement("th");
+  fromTile.innerText = "Vào tầng";
+  titles.appendChild(fromTile);
+
+  let toTitle = document.createElement("th");
+  toTitle.innerText = "Ra tầng";
+  titles.appendChild(toTitle);
+
+  let timeTitle = document.createElement("th");
+  timeTitle.innerText = "Thời gian";
+  titles.appendChild(timeTitle);
+
+  let detailTitle = document.createElement("th");
+  detailTitle.innerText = '<a href="#" onclick="onDetail()">Detail</a>';
+  table.appendChild(titles);
+
+  let deleteTitle = document.createElement("th");
+  deleteTitle.innerText = '<a href="#" onclick="onDelete()">Delete</a>';
+  table.appendChild(titles);
+
+  actions.forEach((act, i) => {
+    let user = users.find((u) => {
+      return u.id == act.userId;
+    });
+    let lift = lifts.find((l) => {
+      return l.id == act.liftId;
+    });
+    let row = document.createElement("tr");
+
+    let col1 = document.createElement("td");
+    col1.innerText = act.from;
+    row.appendChild(col4);
+
+    let col2 = document.createElement("td");
+    col2.innerText = act.to;
+    row.appendChild(col5);
+
+    let col3 = document.createElement("td");
+    // col6.innerText = act.time;
+    let date = new Date(act.time);
+    let dateString = `${date.getFullYear()} - ${
+      date.getMonth() + 1
+    } - ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+    col3.innerText = dateString;
+    row.appendChild(col6);
+    table.appendChild(row);
+
+    onDetatil = () => {
+      document.getElementById("text").innerHTML = `Tên người dùng: ${
+        user.name
+      }; Tên thang máy: ${lift ? lift.name : ""}; Ghi chú: ${
+        act.note ? act.note : "Chưa có ghi chú"
+      }`;
+      document.getElementById("note").innerHTML = `Sửa ghi chú: `;
+      const input = document.createElement("input");
+      input.addEventListener("keyup", (ev) => {
+        inputValue = ev.target.value;
+        console.log("111111111111", actions);
+      });
+    };
+
+    onDelete = (event) => {
+      let td = event.target.parentNode;
+      let tr = td.parentNode; // the row to be removed
+      tr.parentNode.removeChild(tr);
+    };
+  });
+  container2.appendChild(table2);
 }
 
 render();
 
+render2();

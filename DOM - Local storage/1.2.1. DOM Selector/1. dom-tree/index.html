@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <title>DOM Tree</title>
+    <style>
+      .hehehe {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <title>DOM Tree</title>
-  <style>
-    .hehehe {
-      text-decoration: underline;
-    }
-  </style>
-</head>
+  <body>
+    <h1 id="header" class="hahaha">Welcome to WEB class</h1>
+    <div id="container"></div>
+    <div id="text"></div>
+    <div id="note"></div>
 
-<body>
-  <h1 id="header" class="hahaha">Welcome to WEB class</h1>
-  <div id="container"></div>
-  <div id="text"></div>
-  <div id="note"></div>
+    <select name="" id="nameSelect" onchange="onNameChange(event)"></select>
 
-  <select name="" id="nameSelect" onchange="onNameChange(event)">
-  </select>
+    <select name="" id="liftSelect"></select>
+    <input id="fromInput" type="number" placeholder="Vào tầng" />
+    <input id="toInput" type="number" placeholder="Ra tâng" />
+    <button onclick="onSave()">Lưu</button>
+    <hr />
 
-  <select name="" id="liftSelect">
-  </select>
-  <input id="fromInput" type="number" placeholder="Vào tầng">
-  <input id="toInput" type="number" placeholder="Ra tâng">
-  <button onclick="onSave()">Lưu</button>
-  <hr>
-  <script src="main.js"></script>
-</body>
+    <div id="container2"></div>
 
+    <div></div>
+    <script src="main.js"></script>
+  </body>
 </html>
