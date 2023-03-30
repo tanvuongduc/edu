@@ -4,44 +4,28 @@
 <head>
   <meta charset="utf-8" />
   <title>DOM Tree</title>
+  <style>
+    .hehehe {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<style>
-  .hehe{
-    text-decoration: underline;
-  }
-</style>
 
 <body>
+  <h1 id="header" class="hahaha">Welcome to WEB class</h1>
   <div id="container"></div>
-  <h1 id="header" class="header">duong</h1>
-  <!-- <table id="tbl">
-    <tr>
-      <td>Người dùng</td>
-        <td>Tên thang máy</td>
-      <td>Vào tầng</td>
-      <td>Ra tầng</td>
-      <td>Thời gian</td>
-      <td>Ghi chú</td>
-    </tr>
-  </table> -->
-  <select name="" id="nameSelect">
-    <option value=""></option>
+  <div id="text"></div>
+  <div id="note"></div>
+
+  <select name="" id="nameSelect" onchange="onNameChange(event)">
   </select>
 
   <select name="" id="liftSelect">
-    <option value=""></option>
   </select>
-  <!-- <button onmouseenter="test()">test</button>
-    <div id="text"></div>
-  <button onclick="test()">test2</button>
-  <input type="text" onchange="testkeyboard()"> -->
-
-  <!-- <input id="1" type="text" onchange="testkeyboard(event)"> -->
-  <!-- <input id="2" type="text" onkeydown="testkeyboard(event)"> -->
-  <!-- <input id="3" type="text" onkeyup="testkeyboard()"> -->
-
-
-
+  <input id="fromInput" type="number" placeholder="Vào tầng">
+  <input id="toInput" type="number" placeholder="Ra tâng">
+  <button onclick="onSave()">Lưu</button>
+  <hr>
   <script src="main.js"></script>
 </body>
 

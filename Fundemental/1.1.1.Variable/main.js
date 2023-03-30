@@ -1,4 +1,6 @@
 let name = 'Tan';
+// hoisting
+const className = 'IT';
 
 console.log('aaaaaaaaaaaaaaa', name)
 name = 123
