@@ -503,13 +503,12 @@ noteInput.addEventListener('keyup', (ev) => {
 })
 
 onCreate = () => {
-  console.log('00000000000', newAct, actions.length);
   newAct.id = Math.random() * 1000;
   newAct.time = (new Date()).getTime();
   actions.push(newAct);
   render();
   resetForm();
-  console.log('11111111111111', newAct, actions);
+  window.localStorage.setItem('data', JSON.stringify(actions));
 }
 
 resetForm = () => {
@@ -536,7 +535,6 @@ resetForm = () => {
 }
 
 onEdit = (actIndex) => {
-  console.log('aaaaaaaaaaaaaaaa', actIndex);
   selectedAction = actions[actIndex];
   let nameSelect = document.getElementById('nameSelect');
   let liftSelect = document.getElementById('liftSelect');
@@ -570,6 +568,7 @@ onSave = () => {
   selectedAction.note = noteInput.value;
   render();
   resetForm();
+  window.localStorage.setItem('data', JSON.stringify(actions))
 }
 
 onCacel = () => {
@@ -580,23 +579,9 @@ onDelete = (actIndex) => {
   if (confirm('Bạn có chắc muốn xóa dòng này chứ?')) {
     actions.splice(actIndex, 1);
     render();
+    window.localStorage.setItem('data', JSON.stringify(actions))
   }
 }
 
+actions = JSON.parse(window.localStorage.getItem('data'))
 render();
-
-let _data = {
-  id: 2,
-  userId: 2,
-  liftId: 2,
-  from: 2,
-  to: 10,
-  time: new Date(2022, 3, 5).getTime(),
-  // note: 'cu dan'
-}
-window.localStorage.setItem('data', JSON.stringify(_data))
-console.log(JSON.parse(window.localStorage.getItem('data'))); 
-// window.localStorage.setItem('class', 'IT')
-
-// window.sessionStorage.setItem('name', 'Tan')
-// window.sessionStorage.setItem('class', 'IT')
