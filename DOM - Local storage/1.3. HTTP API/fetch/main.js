@@ -56,4 +56,5 @@ createTodo((d) => console.log(d));
 // GET lấy dữ liệu
 // POST Lưu dữ liệu
 // PUT Sửa dữ liệu
+// PATCH Sửa dữ liệu
 // DELETE Xóa dữ liệu

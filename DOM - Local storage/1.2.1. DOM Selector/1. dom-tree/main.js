@@ -481,13 +481,12 @@ noteInput.addEventListener('keyup', (ev) => {
 })
 
 onCreate = () => {
-  console.log('00000000000', newAct, actions.length);
   newAct.id = Math.random() * 1000;
   newAct.time = (new Date()).getTime();
   actions.push(newAct);
   render();
   resetForm();
-  console.log('11111111111111', newAct, actions);
+  window.localStorage.setItem('data', JSON.stringify(actions));
 }
 
 resetForm = () => {
@@ -514,7 +513,6 @@ resetForm = () => {
 }
 
 onEdit = (actIndex) => {
-  console.log('aaaaaaaaaaaaaaaa', actIndex);
   selectedAction = actions[actIndex];
   let nameSelect = document.getElementById('nameSelect');
   let liftSelect = document.getElementById('liftSelect');
@@ -548,6 +546,7 @@ onSave = () => {
   selectedAction.note = noteInput.value;
   render();
   resetForm();
+  window.localStorage.setItem('data', JSON.stringify(actions))
 }
 
 onCacel = () => {
@@ -558,8 +557,10 @@ onDelete = (actIndex) => {
   if (confirm('Bạn có chắc muốn xóa dòng này chứ?')) {
     actions.splice(actIndex, 1);
     render();
+    window.localStorage.setItem('data', JSON.stringify(actions))
   }
 }
+
 
 render(); 
 
@@ -578,3 +579,7 @@ console.log(JSON.parse(window.localStorage.getItem('data')));
 
 // window.sessionStorage.setItem('name', 'Tan')
 // window.sessionStorage.setItem('class', 'IT')
+
+actions = JSON.parse(window.localStorage.getItem('data'))
+render();
+
