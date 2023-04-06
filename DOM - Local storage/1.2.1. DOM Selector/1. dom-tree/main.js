@@ -510,6 +510,7 @@ onCreate = () => {
   render();
   resetForm();
   console.log('11111111111111', newAct, actions);
+  
 }
 
 resetForm = () => {
@@ -594,9 +595,10 @@ let _data = {
   time: new Date(2022, 3, 5).getTime(),
   // note: 'cu dan'
 }
-window.localStorage.setItem('data', JSON.stringify(_data))
+window.localStorage.setItem('data', JSON.stringify(action))
 console.log(JSON.parse(window.localStorage.getItem('data'))); 
 // window.localStorage.setItem('class', 'IT')
 
 // window.sessionStorage.setItem('name', 'Tan')
 // window.sessionStorage.setItem('class', 'IT')
+ 
