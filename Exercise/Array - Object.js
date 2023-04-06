@@ -168,7 +168,256 @@ let devices = [
         owner: 3 // User Id; Id chủ sở hữu thiết bị
     },
 ]
+let newDev = {};
+let selectedDevice = {};
+let container = document.getElementById('container');
+function render(){
+    container.innerHTML = null;
+    let table = document.createElement('table');
+    let titles = document.createElement('tr');
+     
+    let noTitle = document.createElement('th');
+    noTitle.innerText = 'số thứ tự';
+    titles.appendChild(noTitle);
 
+    let userNameTile = document.createElement('th');
+    userNameTile.innerText = 'tên người dùng';
+    titles.appendChild(userNameTile);
+
+    let roleTile = document.createElement('th');
+    roleTile.innerText = 'quyền truy cập';
+    titles.appendChild(roleTile);
+
+    let descripTile = document.createElement('th');
+    descripTile.innerText = 'chi tiết phòng';
+    titles.appendChild(descripTile);
+    
+    let diviceTile = document.createElement('th');
+    diviceTile.innerText = 'thiết bị thuộc loại nào'
+    titles.appendChild(diviceTile);
+
+    let statusTile = document.createElement('th');
+    statusTile.innerText = 'trạng thái của loại thiết bị tương ứng'
+    titles.appendChild(statusTile);
+
+    let ownerTile = document.createElement('th');
+    ownerTile.innerText = 'chủ sỡ hữu thiết bị'
+    titles.appendChild(ownerTile);
+
+    let noteTitle = document.createElement('th');
+  noteTitle.innerText = 'Ghi chú';
+  titles.appendChild(noteTitle);
+  table.appendChild(titles);
+
+  let devTitle = document.createElement('th');
+  devTitle.innerText = 'Thao tác';
+  titles.appendChild(devTitle);
+  table.appendChild(titles);
+
+  devices.forEach((dev, i) => {
+    let user = users.find(u => {
+      return u.id == dev.userId;
+    })
+    let role = roles.find(r => {
+      return r.id == dev.roleId;
+    })
+    let deviceStatue = deviceStatues.find(deviceStatue => {
+        return deviceStatue.id == dev.deviceStatueId;
+      })
+      let deviceType = deviceTypes.find(deviceType => {
+        return deviceType.id == dev.deviceTypeId;
+      })
+    // console.log('aaaaaaaaaaaaaaa', user, lift);
+    let row = document.createElement('tr');
+
+    let col1 = document.createElement('td');
+    col1.innerText = i + 1;
+    row.appendChild(col1);
+    let col2 = document.createElement('td');
+    col2.innerText = user.name;
+    row.appendChild(col2);
+    let col3 = document.createElement('td');
+    col3.innerText = role.name;
+    row.appendChild(col3);
+
+    let col4 = document.createElement('td');
+    col4.innerText = deviceStatue.name;
+    row.appendChild(col4);
+
+    let col5 = document.createElement('td');
+    col5.innerText = deviceType.name;
+    row.appendChild(col5);
+
+    let col6 = document.createElement('td');
+    col6.innerText = dev.status;
+    row.appendChild(col6);
+
+    let col7 = document.createElement('td');
+    col7.innerText = dev.owner;
+    row.appendChild(col7);
+
+   
+    let col8 = document.createElement('td');
+    col8.innerText = dev.note || '';
+    row.appendChild(col8);
+
+    let col9 = document.createElement('td');
+    col9.innerHTML = `<button onclick="onEdit(${i})">Edit</button>
+    <button onclick="onDelete(${i})">Delete</button>`;
+    row.appendChild(col9);
+    table.appendChild(row);
+  });
+
+  container.appendChild(table);
+}
+
+let nameSelect = document.getElementById('nameSelect')
+users.forEach(user => {
+  let opt = document.createElement('option');
+  opt.value = user.id;
+  opt.innerText = user.name;
+  nameSelect.appendChild(opt);
+})
+
+let roleSelect = document.getElementById('roleSelect')
+roleSelect.addEventListener('change', (ev) => {
+  newDev.roleId = ev.target.value;
+})
+roles.forEach(role => {
+  let opt = document.createElement('option');
+  opt.value = role.id;
+  opt.innerText = role.name;
+  roleSelect.appendChild(opt);
+})
+let deviceStatueSelect = document.getElementById('deviceStatueSelect')
+deviceStatueSelect.addEventListener('change', (ev) => {
+  newDev.deviceStatueId = +ev.target.value;
+})
+deviceStatues.forEach(deviceStatue => {
+  let opt = document.createElement('option');
+  opt.value = deviceStatue.id;
+  opt.innerText = deviceStatue.name;
+  deviceStatueSelect.appendChild(opt);
+})
+let deviceTypeSelect = document.getElementById('deviceTypeSelect')
+deviceTypeSelect.addEventListener('change', (ev) => {
+  newDev.deviceTypeId = +ev.target.value;
+})
+deviceTypes.forEach(deviceType => {
+  let opt = document.createElement('option');
+  opt.value = deviceType.id;
+  opt.innerText = deviceType.name;
+  deviceTypeSelect.appendChild(opt);
+})
+
+onNameChange = (ev) => {
+  newDev.userId = +ev.target.value;
+}
+
+let statusInput = document.getElementById('statusInput');
+statusInput.addEventListener('keyup', (ev) => {
+  newDev.status = +ev.target.value;
+})
+let ownerInput = document.getElementById('ownerInput');
+ownerInput.addEventListener('keyup', (ev) => {
+  newDev.owner = +ev.target.value;
+})
+
+let noteInput = document.getElementById('noteInput');
+noteInput.addEventListener('keyup', (ev) => {
+  newDev.note = ev.target.value;
+})
+
+onCreate = () => {
+  newDev.id = Math.random() * 1000;
+  
+  devices.push(newDev);
+  render();
+  resetForm();
+  
+}
+resetForm = () => {
+    newDev = {};
+    selectedDevice = {};
+    let nameSelect = document.getElementById('nameSelect');
+    let roleSelect = document.getElementById('roleSelect');
+    let deviceStatueSelect = document.getElementById('deviceStatueSelect');
+    let deviceTypeSelect = document.getElementById('deviceTypeSelect');
+    let statusInput = document.getElementById('statusInput');
+    let ownerInput = document.getElementById('ownerInput');
+    let noteInput = document.getElementById('noteInput');
+  
+    let btnAdd = document.getElementById('btnAdd');
+    let btnEdit = document.getElementById('btnEdit');
+    let btnCancel = document.getElementById('btnCancel');
+    btnAdd.classList.remove('hide');
+    btnEdit.classList.add('hide');
+    btnCancel.classList.add('hide');
+    nameSelect.value = '';
+    roleSelect.value = '';
+    deviceStatueSelect.value = '';
+    deviceTypeSelect.value = '';
+    statusInput.value = null;
+    ownerInput.value = null;
+    noteInput.value = '';
+  
+  }
+  
+  onEdit = (devIndex) => {
+    selectedDevice = devices[devIndex];
+    let nameSelect = document.getElementById('nameSelect');
+    let roleSelect = document.getElementById('roleSelect');
+    let deviceStatueSelect = document.getElementById('deviceStatueSelect');
+    let deviceTypeSelect = document.getElementById('deviceTypeSelect');
+    let statusInput = document.getElementById('statusInput');
+    let ownerInput = document.getElementById('ownerInput');
+    let noteInput = document.getElementById('noteInput');
+  
+    let btnAdd = document.getElementById('btnAdd');
+    let btnEdit = document.getElementById('btnEdit');
+    let btnCancel = document.getElementById('btnCancel');
+    btnAdd.classList.add('hide');
+    btnEdit.classList.remove('hide');
+    btnCancel.classList.remove('hide');
+    nameSelect.value = selectedDevice.userId
+    roleSelect.value = selectedDevice.roleId
+    deviceStatueSelect.value = selectedDevice.deviceStatueId
+    deviceTypeSelect.value = selectedDevice.deviceTypeId
+    statusInput.value = selectedDevice.status
+    ownerInput.value = selectedDevice.owner
+    noteInput.value = selectedDevice.note || '';
+  }
+  
+  onSave = () => {
+    let nameSelect = document.getElementById('nameSelect');
+    let liftSelect = document.getElementById('liftSelect');
+    let fromInput = document.getElementById('fromInput');
+    let toInput = document.getElementById('toInput');
+    let noteInput = document.getElementById('noteInput');
+    selectedDevice.userId = nameSelect.value;
+    selectedDevice.liftId = liftSelect.value;
+    selectedDevice.from = fromInput.value;
+    selectedDevice.to = toInput.value;
+    selectedDevice.note = noteInput.value;
+    render();
+    resetForm();
+    
+  }
+  
+  onCacel = () => {
+    resetForm();
+  }
+  
+  onDelete = (devIndex) => {
+    if (confirm('Bạn có chắc muốn xóa dòng này chứ?')) {
+      devices.splice(devIndex, 1);
+      render();
+      
+    }
+  }
+  
+ 
+  render();
 // Yêu cầu: 
 // Todo:
 //  - Hiển thị danh sách tất cả user trong hệ thống, bao gồm quyền của người dùng đó (hiển thị thành bảng)

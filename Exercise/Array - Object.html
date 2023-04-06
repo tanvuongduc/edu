@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="header" class="dau">QUYỀN TRUY CẬP HỆ THỐNG</h1>
+    <div id="container"></div>
+    <div id="text"></div>
+    <div id="note"></div>
+    <select name="" id="nameSelect" onchange="onNameChange(event)">
+    <option value="">chọn user</option>
+    </select>
+    <select name="" id="roleSelect" >
+        <option value="">chọn quyền hệ thống</option>
+        </select>
+<!--         <select name="" id="descriptionSelect" onchange="onDescriptionChange(event)">
+            <option value="">chi tiết phòng</option>
+            </select>
+            <select name="" id="deviceTypeSelect" onchange="onDeviceTypeChange(event)">
+                <option value="">thiết bị thuộc loại nào</option>
+                </select> -->
+        <input id="descriptionInput" type="text" placeholder="chi tiết phòng">
+  <input id="deviceTypeInput" type="text" placeholder="thiết bị thuộc loại nào">
+  <input id="noteInput" type="text" placeholder="Ghi chú">
+  <button id="btnAdd" onclick="onCreate()">Tạo mới</button>
+  <button id="btnEdit" class=" hide" onclick="onSave()">Lưu</button>
+  <button id="btnCancel" class=" hide" onclick="onCancel()">Hủy</button>
+    <script src="Array - Object.js"></script>
+</body>
+</html>
