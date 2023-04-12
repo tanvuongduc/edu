@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+
+    <style>
+        
+
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        h1{
+            text-align: center;
+            font-style:italic;
+        }
+
+        #container{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        #select-status{
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+
+<body>
+        <div id="header">
+            <h1>Quyền sử dụng hệ thống</h1>
+        </div>
+        <div id="container">
+
+        </div>
+        <!-- <p id="demo">Click me.</p> -->
+        <div id="text">
+
+        </div>
+
+        <div id="note">
+
+        </div>
+
+       <div id="select-status">
+        <select name="" id="nameSelect" onchange="onNameChange(event)">
+            <option value="">chọn user</option>
+            <option value="">hi</option>
+            </select>
+            <select name="" id="roleSelect" >
+                <option value="">chọn quyền hệ thống</option>
+                </select>
+
+                        <!-- <select name="" id="descriptionSelect" onchange="onDescriptionChange(event)">
+            <option value="">chi tiết phòng</option>
+            </select>
+            <select name="" id="deviceTypeSelect" onchange="onDeviceTypeChange(event)">
+                <option value="">thiết bị thuộc loại nào</option>
+                </select> -->
+        
+                <input id="descriptionInput" type="text" placeholder="chi tiết phòng">
+                <input id="deviceTypeInput" type="text" placeholder="thiết bị thuộc loại nào">
+                <input id="noteInput" type="text" placeholder="Ghi chú">
+                <button id="btnAdd" onclick="onCreate()">Tạo mới</button>
+                <button id="btnEdit" class=" hide" onclick="onSave()">Lưu</button>
+                <button id="btnCancel" class=" hide" onclick="onCancel()">Hủy</button>
+
+       </div>
+
+
+    <script src="Array - Object.js"></script>
+
+</body>
+</html>

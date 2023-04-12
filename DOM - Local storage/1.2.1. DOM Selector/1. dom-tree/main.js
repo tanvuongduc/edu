@@ -370,7 +370,7 @@ let actions = [
 
 
 let newAct = {};
-let selectedAction = {};
+let selectedAction = {};   
 
 let container = document.getElementById('container');
 
@@ -464,6 +464,7 @@ function render() {
 
   container.appendChild(table);
 }
+
 
 let nameSelect = document.getElementById('nameSelect')
 users.forEach(user => {
