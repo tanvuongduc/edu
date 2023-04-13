@@ -370,6 +370,7 @@ let actions = [
 
 
 let newAct = {};
+let selectedAction = {};
 
 let container = document.getElementById('container');
 
@@ -404,6 +405,17 @@ function render() {
   timeTitle.innerText = 'Thời gian';
   titles.appendChild(timeTitle);
   table.appendChild(titles);
+
+  let noteTitle = document.createElement('th');
+  noteTitle.innerText = 'Ghi chú';
+  titles.appendChild(noteTitle);
+  table.appendChild(titles);
+
+  let actTitle = document.createElement('th');
+  actTitle.innerText = 'Thao tác';
+  titles.appendChild(actTitle);
+  table.appendChild(titles);
+
   actions.forEach((act, i) => {
     let user = users.find(u => {
       return u.id == act.userId;
@@ -411,6 +423,7 @@ function render() {
     let lift = lifts.find(l => {
       return l.id == act.liftId;
     })
+    // console.log('aaaaaaaaaaaaaaa', user, lift);
     let row = document.createElement('tr');
 
     let col1 = document.createElement('td');
@@ -419,7 +432,6 @@ function render() {
     let col2 = document.createElement('td');
     col2.innerText = user.name;
     row.appendChild(col2);
-
     let col3 = document.createElement('td');
     col3.innerText = lift.name;
     row.appendChild(col3);
@@ -438,6 +450,15 @@ function render() {
     let dateString = `${date.getFullYear()} - ${date.getMonth() + 1} - ${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
     col6.innerText = dateString;
     row.appendChild(col6);
+
+    let col7 = document.createElement('td');
+    col7.innerText = act.note || '';
+    row.appendChild(col7);
+
+    let col8 = document.createElement('td');
+    col8.innerHTML = `<button onclick="onEdit(${i})">Edit</button>
+    <button onclick="onDelete(${i})">Delete</button>`;
+    row.appendChild(col8);
     table.appendChild(row);
   });
 
@@ -455,7 +476,6 @@ users.forEach(user => {
 let liftSelect = document.getElementById('liftSelect')
 liftSelect.addEventListener('change', (ev) => {
   newAct.liftId = +ev.target.value;
-  console.log(11111111111111, newAct);
 })
 lifts.forEach(lift => {
   let opt = document.createElement('option');
@@ -464,29 +484,107 @@ lifts.forEach(lift => {
   liftSelect.appendChild(opt);
 })
 
-console.log('aaaaaaaaaaaaaaaaaaa', nameSelect.value);
 onNameChange = (ev) => {
   newAct.userId = +ev.target.value;
-  console.log(11111111111111, newAct);
 }
 
 let fromInput = document.getElementById('fromInput');
 fromInput.addEventListener('keyup', (ev) => {
   newAct.from = +ev.target.value;
-  console.log(11111111111111, newAct);
 })
 let toInput = document.getElementById('toInput');
 toInput.addEventListener('keyup', (ev) => {
   newAct.to = +ev.target.value;
-  console.log(11111111111111, newAct);
 })
 
-onSave = () => {
+let noteInput = document.getElementById('noteInput');
+noteInput.addEventListener('keyup', (ev) => {
+  newAct.note = ev.target.value;
+})
+
+onCreate = () => {
+  console.log('00000000000', newAct, actions.length);
   newAct.id = Math.random() * 1000;
   newAct.time = (new Date()).getTime();
   actions.push(newAct);
   render();
+  resetForm();
+  console.log('11111111111111', newAct, actions);
+}
+
+resetForm = () => {
   newAct = {};
+  selectedAction = {};
+  let nameSelect = document.getElementById('nameSelect');
+  let liftSelect = document.getElementById('liftSelect');
+  let fromInput = document.getElementById('fromInput');
+  let toInput = document.getElementById('toInput');
+  let noteInput = document.getElementById('noteInput');
+
+  let btnAdd = document.getElementById('btnAdd');
+  let btnEdit = document.getElementById('btnEdit');
+  let btnCancel = document.getElementById('btnCancel');
+  btnAdd.classList.remove('hide');
+  btnEdit.classList.add('hide');
+  btnCancel.classList.add('hide');
+  nameSelect.value = '';
+  liftSelect.value = '';
+  fromInput.value = null;
+  toInput.value = null;
+  noteInput.value = '';
+
+}
+
+onEdit = (actIndex) => {
+  console.log('aaaaaaaaaaaaaaaa', actIndex);
+  selectedAction = actions[actIndex];
+  let nameSelect = document.getElementById('nameSelect');
+  let liftSelect = document.getElementById('liftSelect');
+  let fromInput = document.getElementById('fromInput');
+  let toInput = document.getElementById('toInput');
+  let noteInput = document.getElementById('noteInput');
+
+  let btnAdd = document.getElementById('btnAdd');
+  let btnEdit = document.getElementById('btnEdit');
+  let btnCancel = document.getElementById('btnCancel');
+  btnAdd.classList.add('hide');
+  btnEdit.classList.remove('hide');
+  btnCancel.classList.remove('hide');
+  nameSelect.value = selectedAction.userId
+  liftSelect.value = selectedAction.liftId
+  fromInput.value = selectedAction.from
+  toInput.value = selectedAction.to
+  noteInput.value = selectedAction.note || '';
+}
+
+onSave = () => {
+  let nameSelect = document.getElementById('nameSelect');
+  let liftSelect = document.getElementById('liftSelect');
+  let fromInput = document.getElementById('fromInput');
+  let toInput = document.getElementById('toInput');
+  let noteInput = document.getElementById('noteInput');
+  selectedAction.userId = nameSelect.value;
+  selectedAction.liftId = liftSelect.value;
+  selectedAction.from = fromInput.value;
+  selectedAction.to = toInput.value;
+  selectedAction.note = noteInput.value;
+  render();
+  resetForm();
+}
+
+onCacel = () => {
+  resetForm();
+}
+
+onDelete = (actIndex) => {
+  if (confirm('Bạn có chắc muốn xóa dòng này chứ?')) {
+    actions.splice(actIndex, 1);
+    render();
+  }
 }
 
 render();
+
+
+// window.sessionStorage.setItem('name', 'Tan')
+// window.sessionStorage.setItem('class', 'IT')

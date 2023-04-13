@@ -8,6 +8,9 @@
     .hehehe {
       text-decoration: underline;
     }
+    .hide {
+      display: none;
+    }
   </style>
 </head>
 
@@ -18,13 +21,20 @@
   <div id="note"></div>
 
   <select name="" id="nameSelect" onchange="onNameChange(event)">
+    <option value="">Chọn User</option>
   </select>
 
   <select name="" id="liftSelect">
+    <option value="">Chọn Thang máy</option>
   </select>
   <input id="fromInput" type="number" placeholder="Vào tầng">
   <input id="toInput" type="number" placeholder="Ra tâng">
-  <button onclick="onSave()">Lưu</button>
+  <input id="noteInput" type="text" placeholder="Ghi chú">
+  <button id="btnAdd" onclick="onCreate()">Tạo mới</button>
+  <button id="btnEdit" class=" hide" onclick="onSave()">Lưu</button>
+  <button id="btnCancel" class=" hide" onclick="onCancel()">Hủy</button>
+
+  
   <hr>
   <script src="main.js"></script>
 </body>
