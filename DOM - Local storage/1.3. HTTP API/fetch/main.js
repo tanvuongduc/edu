@@ -8,22 +8,22 @@ function readAllTodo(callback) {
 }
 
 // using fetch api
-function createTodo(callback) {
-    fetch('https://jsonplaceholder.typicode.com/todos', {
-        method: 'POST',
-        body: JSON.stringify({
-            title: 'Task 1',
-            userId: 1000,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-            'tan': 'dep trai'
-        },
-    }).then(d => callback(d))
-        .catch(err => {
+// function createTodo(callback) {
+//     fetch('https://jsonplaceholder.typicode.com/todos', {
+//         method: 'POST',
+//         body: JSON.stringify({
+//             title: 'Task 1',
+//             userId: 1000,
+//         }),
+//         headers: {
+//             'Content-type': 'application/json; charset=UTF-8',
+//             'tan': 'dep trai'
+//         },
+//     }).then(d => callback(d))
+//         .catch(err => {
 
-        });
-}
+//         });
+// }
 
 // let text = 'aaaaaa';
 // text.a1 = 'aaaa'
@@ -58,3 +58,57 @@ createTodo((d) => console.log(d));
 // PUT Sửa dữ liệu
 // PATCH Sửa dữ liệu
 // DELETE Xóa dữ liệu
+
+function createTodo(callback) {
+    fetch('https://jsonplaceholder.typicode.com/users', {
+        method: 'POST',
+        body: JSON.stringify({
+            title: 'Task 1',
+            userId: 1000,
+        }),
+        headers: {
+            "name": "Leanne Graham",
+            "username": "Bret",
+            "email": "Sincere@april.biz",
+            "address": {
+              "street": "Kulas Light",
+              "suite": "Apt. 556",
+              "city": "Gwenborough",
+              "zipcode": "92998-3874",
+              "geo": {
+                "lat": "-37.3159",
+                "lng": "81.1496"
+              }
+            }}
+    }).then(d => callback(d))
+        .catch(err => {
+
+        });
+}
+// let opp = {
+//     method: 'POST',
+//     body: JSON.stringify({
+//         title: 'Task 1',
+//         userId: 1000,
+//     }),
+//     headers: {
+//          "name": "Leanne Graham",
+//         "username": "Bret",
+//          "email": "Sincere@april.biz",
+//         "address": {
+//               "street": "Kulas Light",
+//               "suite": "Apt. 556",
+//               "city": "Gwenborough",
+//               "zipcode": "92998-3874",
+//               "geo": {
+//                 "lat": "-37.3159",
+//                 "lng": "81.1496"
+//               }
+//             }},
+
+// };
+// fetch('https://jsonplaceholder.typicode.com/users',opp.then(res =>{
+
+// }
+// ).c
+// )
