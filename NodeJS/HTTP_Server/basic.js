@@ -2,7 +2,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const app = express();
 
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://127.0.0.1:27017';
 const client = new MongoClient(url);
 
 // Database Name
@@ -33,6 +33,13 @@ client.connect().then(() => {
     })
 
     app.post('/users', async (req, res) => {
+        // todo: checktoken
+        // console.log('aaaaaaaaaaaaaaaaa', req.headers.token);
+        let token = req.headers.token;
+        let _res = await Tokens_Collection.findOne({ token })
+
+        if (!_res) return res.status(401).send();
+
         console.log(req.body);
         let id = Math.ceil((Math.random() * 1000))
         let user = {
@@ -44,10 +51,11 @@ client.connect().then(() => {
             password: req.body.password,
         };
         const result = await Users_Collection.insertOne(user);
-        console.log('aaaaaaaaaaaaaaaaa', result);
         if (result.acknowledged)
             return res.status(200).send();
         else return res.status(500).send("Internal server error");
+
+
     })
 
     app.patch('/users/:id', async (req, res) => {
@@ -143,15 +151,5 @@ client.connect().then(() => {
 function randomString() {
     return Math.random().toString(360).substr(3, 6);
 }
-// app.use(express.json());
-// const users = [
-//     { username: "admin", password: "123456" }
-// ];
-// const all_tokens = {};
-
-// app.get('/info/:token', (req, res) => {
-//     const user = all_tokens[req.params.token];
-//     res.json(user);
-// });
 
 app.listen(3000);
