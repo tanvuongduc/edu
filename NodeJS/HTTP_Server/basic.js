@@ -15,6 +15,7 @@ client.connect().then(() => {
     const db = client.db(dbName);
     const Users_Collection = db.collection('Users');
     const Roles_Collection = db.collection('Roles');
+    const Tokens_Collection = db.collection('Tokens');
 
     // the following code examples can be pasted here...
 
@@ -39,6 +40,8 @@ client.connect().then(() => {
             name: req.body.name,
             gender: req.body.gender,
             roleId: req.body.roleId,
+            userName: req.body.userName,
+            password: req.body.password,
         };
         const result = await Users_Collection.insertOne(user);
         console.log('aaaaaaaaaaaaaaaaa', result);
@@ -100,7 +103,7 @@ client.connect().then(() => {
                 if (_res.deletedCount == 1) {
                     return res.status(200).send('Delete successfuly');
                 }
-                if(_res.deletedCount == 0) {
+                if (_res.deletedCount == 0) {
                     return res.status(400).send('Cannot find the given id');
                 }
             } else {
@@ -109,6 +112,22 @@ client.connect().then(() => {
 
         })
     })
+
+
+    app.post('/login', (req, res) => {
+        console.log('11111111111111111111', req.body);
+        const userName = req.body.userName;
+        const password = req.body.password;
+        Users_Collection.findOne({ userName }).then(userInst => {
+            console.log('aaaaaaaaaaaaaaaaaa', userInst);
+            if (!userInst) return res.status(400).send('Username Not found')
+            if (userInst.password != password) return res.status(400).send('Incorrent password')
+            let token = randomString();
+            Tokens_Collection.insertOne({ userId: userInst.id, token }).then(() => {
+                return res.status(200).send({ token });
+            })
+        })
+    });
 
 
 
@@ -120,24 +139,15 @@ client.connect().then(() => {
 }).catch(err => {
     console.log('Connect to db got error: ', err);
 });
+
+function randomString() {
+    return Math.random().toString(360).substr(3, 6);
+}
 // app.use(express.json());
 // const users = [
 //     { username: "admin", password: "123456" }
 // ];
 // const all_tokens = {};
-// app.post('/login', (req, res) => {
-//     const username = req.body.username;
-//     const password = req.body.password;
-//     for (const u of users) {
-//         if (u.username === username && u.password === password) {
-//             const token = Math.random().toFixed(6);
-//             all_tokens[token] = u;
-//             res.json({ ok: true, token: token });
-//             return;
-//         }
-//     }
-//     res.json({ ok: false });
-// });
 
 // app.get('/info/:token', (req, res) => {
 //     const user = all_tokens[req.params.token];
