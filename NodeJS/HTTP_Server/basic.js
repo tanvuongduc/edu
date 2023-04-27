@@ -30,7 +30,7 @@ let users = [
 ];
 
 
-const url = "mongodb://0.0.0.0:27017/";
+const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 
 // Database Name
@@ -53,7 +53,10 @@ client.connect().then(() => {
     });
 
     app.get('/users', (req, res) => {
-        res.status(200).send(users);
+        Users_Collection.find().toArray().then(_users => {
+            console.log('aaaaaaaaaaaaaaa', _users);
+            res.status(200).send(_users);
+        });
     })
 
     app.post('/users', async (req, res) => {
@@ -65,30 +68,73 @@ client.connect().then(() => {
             gender: req.body.gender,
             roleId: req.body.roleId,
         };
-        const _users = await Users_Collection.insertOne(user);
-        console.log('aaaaaaaaaaaaaaaaa', _users);
-        if (_users.acknowledged)
+        const result = await Users_Collection.insertOne(user);
+        console.log('aaaaaaaaaaaaaaaaa', result);
+        if (result.acknowledged)
             return res.status(200).send();
-        else return res.status(500).send('INternal server error!');
+        else return res.status(500).send("Internal server error");
     })
 
     app.patch('/users/:id', async (req, res) => {
         console.log(req.body);
-        console.log('111111', req.params.id);
+        console.log('11111111111', req.params.id)
         let id = req.params.id;
         id = +id;
-        console.log('2222222', id);
+        console.log('33333333333333', id);
         if (isNaN(id)) {
-            return res.status(400).send("id must me number");
+            return res.status(400).send("Id must be number");
+        }
+        Users_Collection.findOne({ id: id }).then(userInst => {
+            userInst.name = req.body.name;
+            userInst.gender = req.body.gender;
+            userInst.roleId = req.body.roleId;
+            Users_Collection.updateOne({ id }, { $set: userInst }).then(_res => {
+                console.log('22222222222222222', userInst);
+                res.status(200).send();
+            })
+        })
+    })
+
+    app.put('/users/:id', async (req, res) => {
+        console.log(req.body);
+        console.log('11111111111', req.params.id)
+        let id = req.params.id;
+        id = +id;
+        console.log('33333333333333', id);
+        if (isNaN(id)) {
+            return res.status(400).send("Id must be number");
         }
         Users_Collection.findOne({ id: id }).then(userInst => {
             userInst.name = req.body.name || userInst.name;
             userInst.gender = req.body.gender || userInst.gender;
             userInst.roleId = req.body.roleId || userInst.roleId;
-            Users_Collection.updateOne({ id, $set: userInst }).then(userInst => {
-                console.log('2222222', userInst);
+            Users_Collection.updateOne({ id }, { $set: userInst }).then(_res => {
+                console.log('22222222222222222', userInst);
                 res.status(200).send();
             })
+        })
+    })
+
+    app.delete('/users/:id', async (req, res) => {
+        let id = req.params.id;
+        id = +id;
+        console.log('33333333333333', id);
+        if (isNaN(id)) {
+            return res.status(400).send("Id must be number");
+        }
+        Users_Collection.deleteOne({ id: id }).then(_res => {
+            console.log('22222222222222222', _res);
+            if (_res.acknowledged) {
+                if (_res.deletedCount == 1) {
+                    return res.status(200).send('Delete successfuly');
+                }
+                if (_res.deletedCount == 0) {
+                    return res.status(400).send('Cannot find the given id');
+                }
+            } else {
+                return res.status(500).send("Internal server error");
+            }
+
         })
     })
 
@@ -100,6 +146,8 @@ client.connect().then(() => {
         res.end(`hello ${req.params.name}`);
     });
 
+}).catch(err => {
+    console.log('Connect to db got error: ', err);
 });
 // app.use(express.json());
 // const users = [
