@@ -30,7 +30,7 @@ let users = [
 ];
 
 
-const url = 'mongodb://localhost:27017';
+const url = "mongodb://0.0.0.0:27017/";
 const client = new MongoClient(url);
 
 // Database Name
@@ -41,7 +41,7 @@ client.connect().then(() => {
 
     console.log('Connected successfully to server');
     const db = client.db(dbName);
-    const Users_Collection = db.collection('Users');
+    const Users_Collection = db.collection('User');
     const Roles_Collection = db.collection('Roles');
 
     // the following code examples can be pasted here...
@@ -58,7 +58,7 @@ client.connect().then(() => {
 
     app.post('/users', async (req, res) => {
         console.log(req.body);
-        let id = Math.ceil((Math.random()*1000))
+        let id = Math.ceil((Math.random() * 1000))
         let user = {
             id,
             name: req.body.name,
@@ -67,8 +67,31 @@ client.connect().then(() => {
         };
         const _users = await Users_Collection.insertOne(user);
         console.log('aaaaaaaaaaaaaaaaa', _users);
-        res.status(200).send(users);
+        if (_users.acknowledged)
+            return res.status(200).send();
+        else return res.status(500).send('INternal server error!');
     })
+
+    app.patch('/users/:id', async (req, res) => {
+        console.log(req.body);
+        console.log('111111', req.params.id);
+        let id = req.params.id;
+        id = +id;
+        console.log('2222222', id);
+        if (isNaN(id)) {
+            return res.status(400).send("id must me number");
+        }
+        Users_Collection.findOne({ id: id }).then(userInst => {
+            userInst.name = req.body.name || userInst.name;
+            userInst.gender = req.body.gender || userInst.gender;
+            userInst.roleId = req.body.roleId || userInst.roleId;
+            Users_Collection.updateOne({ id, $set: userInst }).then(userInst => {
+                console.log('2222222', userInst);
+                res.status(200).send();
+            })
+        })
+    })
+
 
 
 
