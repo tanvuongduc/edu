@@ -2,6 +2,8 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 let users = [
     {
         id: 1,
@@ -30,7 +32,7 @@ let users = [
 ];
 
 
-const url = 'mongodb://localhost:27017';
+const url = 'mongodb://0.0.0.0:27017/';
 const client = new MongoClient(url);
 
 // Database Name
@@ -43,6 +45,7 @@ client.connect().then(() => {
     const db = client.db(dbName);
     const Users_Collection = db.collection('User');
     const Roles_Collection = db.collection('Roles');
+    const Tokens_Collection = db.collection('Tokens');
 
     // the following code examples can be pasted here...
 
@@ -67,6 +70,8 @@ client.connect().then(() => {
             name: req.body.name,
             gender: req.body.gender,
             roleId: req.body.roleId,
+            userName: req.body.userName,
+            password: req.body.password,
         };
         const result = await Users_Collection.insertOne(user);
         console.log('aaaaaaaaaaaaaaaaa', result);
@@ -139,7 +144,29 @@ client.connect().then(() => {
     })
 
     //roles
-
+    // app.get('/roles', async (req, res) => {
+    //     try {
+    //         const roles = await Roles_Collection.find({});
+    //         res.status(200).json(roles);
+    //     } catch (error) {
+    //         res.status(500).json({ message: error.message });
+    //     }
+    // })
+    app.get('/roles', (req, res) => {
+        Roles_Collection.find().toArray().then(_roles => {
+            console.log('aaaaaaaaaaaaaaa', _roles);
+            res.status(200).send(_roles);
+        });
+    })
+    app.get('roles/:id', async (req, res) => {
+        try {
+            const { id } = req.params;
+            const role = await Roles_Collection.findById(id);
+            res.status(200).json(role);
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
+    })
 
 
     app.get('/hello/:name', (req, res) => {
