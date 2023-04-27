@@ -1,5 +1,8 @@
+
 const express = require('express');
 const app = express();
+
+
 
 app.get('/hello', (req, res) => {
     res.end('hello');
@@ -33,5 +36,9 @@ app.get('/info/:token', (req, res) => {
     const user = all_tokens[req.params.token];
     res.json(user);
 });
+
+app.get('/users',(req,res)=>{
+    res.send('user');
+})
 
 app.listen(3000);
