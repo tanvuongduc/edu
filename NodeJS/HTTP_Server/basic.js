@@ -21,6 +21,15 @@ client.connect().then(() => {
 
 
     app.use(express.json())
+    app.use((req, res, next) => {
+        console.log('Time:', Date.now())
+        // console.log('aaaaaaaaaaaaaaa', req.method);
+        if (req.method == 'GET') {
+            res.status(400).send('Method not supported');
+            return;
+        }
+        next();
+    })
     app.get('/hello', (req, res) => {
         res.end('hello');
     });
@@ -52,7 +61,7 @@ client.connect().then(() => {
         };
         const result = await Users_Collection.insertOne(user);
         if (result.acknowledged)
-            return res.status(200).send();
+            return res.status(200).send(true);
         else return res.status(500).send("Internal server error");
 
 
