@@ -7,7 +7,7 @@ const url = 'mongodb://localhost:27017';
 const client = new MongoClient(url);
 
 // Database Name
-const dbName = 'BuildingManagerment';
+const dbName = 'Users';
 
 // Use connect method to connect to the server
 client.connect().then(() => {
