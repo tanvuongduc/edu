@@ -1,3 +1,21 @@
+.table{
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.bold{
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.right{
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+
 .main {
   display: flex;
   flex-direction: column;
