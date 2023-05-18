@@ -21,7 +21,13 @@ client.connect().then(() => {
 
 
     app.use(express.json())
-    app.get('/hello', (req, res) => {
+    app.use((req, res, next) => {
+        console.log('Time:', Date.now())
+        // console.log('aaaaaaaaaaaaaaa', req.method);
+        next();
+
+    })
+    app.get('/hello', checkToken, (req, res, next) => {
         res.end('hello');
     });
     app.use((req, res, next) => {
@@ -51,13 +57,10 @@ client.connect().then(() => {
         });
     })
 
-    app.post('/users', async (req, res) => {
+    app.post('/users', checkToken, async (req, res) => {
         // todo: checktoken
         // console.log('aaaaaaaaaaaaaaaaa', req.headers.token);
-        let token = req.headers.token;
-        let _res = await Tokens_Collection.findOne({ token })
 
-        if (!_res) return res.status(401).send();
 
         console.log(req.body);
         let id = Math.ceil((Math.random() * 1000))
@@ -71,7 +74,7 @@ client.connect().then(() => {
         };
         const result = await Users_Collection.insertOne(user);
         if (result.acknowledged)
-            return res.status(200).send();
+            return res.status(200).send(true);
         else return res.status(500).send("Internal server error");
 
 
@@ -162,6 +165,14 @@ client.connect().then(() => {
         console.log('aaaaaaaaaaaaaaaaaa', req.method, req.url);
         res.end(`hello ${req.params.name}`);
     });
+
+    async function checkToken(req, res, next) {
+        let token = req.headers.token;
+        let _res = await Tokens_Collection.findOne({ token })
+
+        if (!_res) return res.status(401).send();
+        next();
+    }
 
 }).catch(err => {
     console.log('Connect to db got error: ', err);
