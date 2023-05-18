@@ -24,6 +24,25 @@ client.connect().then(() => {
     app.get('/hello', (req, res) => {
         res.end('hello');
     });
+    app.use((req, res, next) => {
+        console.log('Time:', Date.now());
+        if (req.method == 'GET') {
+            res.status(400).send('Method is not supported');
+            return;
+        }
+        next();
+    });
+
+    app.use(async (req, res, next) => {
+        let token = req.headers.token;
+        let _res = await Tokens_Collection.findOne({ token })
+
+        if (!_res) {
+            res.status(401).send('Token invalid');
+            return;
+        }
+        next();
+    });
 
     app.get('/users', (req, res) => {
         Users_Collection.find().toArray().then(_users => {
