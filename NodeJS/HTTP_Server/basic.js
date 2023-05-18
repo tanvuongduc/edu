@@ -24,11 +24,8 @@ client.connect().then(() => {
     app.use((req, res, next) => {
         console.log('Time:', Date.now())
         // console.log('aaaaaaaaaaaaaaa', req.method);
-        if (req.method == 'GET') {
-            res.status(400).send('Method not supported');
-            return;
-        }
         next();
+
     })
 
     // app.use('/user/:id', function (req, res, next) {
@@ -56,13 +53,10 @@ client.connect().then(() => {
         });
     })
 
-    app.post('/users', async (req, res) => {
+    app.post('/users', checkToken, async (req, res) => {
         // todo: checktoken
         // console.log('aaaaaaaaaaaaaaaaa', req.headers.token);
-        let token = req.headers.token;
-        let _res = await Tokens_Collection.findOne({ token })
 
-        if (!_res) return res.status(401).send();
 
         console.log(req.body);
         let id = Math.ceil((Math.random() * 1000))
@@ -169,6 +163,14 @@ client.connect().then(() => {
     });
 
     function checkToken()
+
+    async function checkToken(req, res, next) {
+        let token = req.headers.token;
+        let _res = await Tokens_Collection.findOne({ token })
+
+        if (!_res) return res.status(401).send();
+        next();
+    }
 
 }).catch(err => {
     console.log('Connect to db got error: ', err);
