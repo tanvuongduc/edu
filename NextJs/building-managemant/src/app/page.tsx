@@ -54,21 +54,28 @@ export default function Home() {
 
   function test(ev: any, index: Number) {
     console.log('aaaaaaaaaaaaaaaaaaaaa', ev);
-  
+
   }
-  
+
   return (
-    <div>
-      <h1 className={styles.red} style={{ color: 'blue', backgroundColor: '#fff' }}>{users.map(user => user.name)}</h1>
-      <button onClick={(ev) => {test(ev, 1)}}>Test</button>
-      <table></table>
+    <>
       {
-        users.map(user => {
-          return  (
-            <div><span>User Name: </span><span>{user.name}</span></div>
-          );
-        })
+        isEdit ?
+          <div className='user-edit'></div> :
+
+          <div className='user-list'>
+            <h1 className={styles.red} style={{ color: 'blue', backgroundColor: '#fff' }}>{users.map(user => user.name)}</h1>
+            <button onClick={(ev) => { test(ev, 1) }}>Test</button>
+            <table></table>
+            {
+              users.map((user, i) => {
+                return (
+                  <div key={i}><span>User Name: </span><span>{String(user.id)}</span></div>
+                );
+              })
+            }
+          </div>
       }
-    </div>
+    </>
   )
 }
