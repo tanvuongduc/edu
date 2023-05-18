@@ -1,0 +1,17 @@
+.table {
+    border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+  }
+  
+  .table th, .table td {
+    border: 1px solid #ccc; /* Đường viền cho các ô */
+    padding: 8px; /* Khoảng cách giữa nội dung và viền */
+  }
+  
+  .table th {
+    background-color: #f2f2f2; /* Màu nền cho tiêu đề cột */
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Màu nền xen kẽ cho các hàng */
+}
+  
