@@ -30,9 +30,24 @@ client.connect().then(() => {
         }
         next();
     })
-    app.get('/hello', (req, res) => {
-        res.end('hello');
-    });
+
+    // app.use('/user/:id', function (req, res, next) {
+    //     console.log('Request URL:', req.originalUrl)
+    //     next()
+    //   }, function (req, res, next) {
+    //     console.log('Request Type:', req.method)
+    //     next()
+    // })
+    app.use( async function (req, res, next) {
+        console.log('Time:', Date.now());
+
+        let token = req.headers.token;
+        let _res = await Tokens_Collection.findOne({ token })
+
+        if (!_res) return res.status(401).send();
+        next()
+    })
+      
 
     app.get('/users', (req, res) => {
         Users_Collection.find().toArray().then(_users => {
@@ -152,6 +167,8 @@ client.connect().then(() => {
         console.log('aaaaaaaaaaaaaaaaaa', req.method, req.url);
         res.end(`hello ${req.params.name}`);
     });
+
+    function checkToken()
 
 }).catch(err => {
     console.log('Connect to db got error: ', err);
