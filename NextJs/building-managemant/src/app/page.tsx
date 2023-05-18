@@ -1,95 +1,74 @@
+'use client';
 import Image from 'next/image'
 import styles from './page.module.css'
 
+interface IUser {
+  id: Number;
+  name: String;
+  age?: Number;
+  gender: Boolean;
+  roleId: Number;
+  address?: IAddress;
+}
+
+interface IAddress {
+  city: String;
+  district: String;
+  ward: String;
+  street: String;
+}
+
 export default function Home() {
+  let users: IUser[];
+  let user1 = { name: 'tan' }
+  // user = user1;
+  let header: any = 123;
+  header = 'User List';
+  let isEdit = false;
+  users = [
+    {
+      id: 1,
+      name: "tan",
+      gender: true,
+      roleId: 1,
+    },
+    {
+      id: 2,
+      name: "phuong",
+      gender: false,
+      roleId: 2,
+    },
+    {
+      id: 3,
+      name: "thanh",
+      gender: true,
+      roleId: 4,
+    },
+    {
+      id: 4,
+      name: "minh",
+      gender: true,
+      roleId: 5,
+    },
+  ]
+
+  function test(ev: any, index: Number) {
+    console.log('aaaaaaaaaaaaaaaaaaaaa', ev);
+  
+  }
+  
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <div>
+      <h1 className={styles.red} style={{ color: 'blue', backgroundColor: '#fff' }}>{users.map(user => user.name)}</h1>
+      <button onClick={(ev) => {test(ev, 1)}}>Test</button>
+      <table></table>
+      {
+        users.map(user => {
+          return  (
+            <div><span>User Name: </span><span>{user.name}</span></div>
+          );
+        })
+      }
+    </div>
   )
 }
