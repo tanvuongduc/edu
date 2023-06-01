@@ -1,4 +1,5 @@
-export function NavBar() {
+export function NavBar({ items }: { items: { title: String; url: String }[] }) {
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa', items);
 
   return (
     <>
@@ -7,13 +8,12 @@ export function NavBar() {
   )
 }
 
-export function Footer() {
+export function Footer({ message }: { message: String }) {
 
-    return (
-      <>
-        <h1>This is footer</h1>
-      </>
-    )
-  }
-  
-  
+  return (
+    <>
+      <h1>{message}</h1>
+    </>
+  )
+}
+

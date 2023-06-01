@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { NavBar, Footer } from './nav-bar';
+import { useState } from 'react';
 
 interface IUser {
   id: Number;
@@ -20,6 +21,9 @@ interface IAddress {
 }
 
 export default function Home() {
+  let [footerMessage, setFooterMessage] = useState('Copyright 2024');
+  let [navItems, setNavItems] = useState<{ title: String; url: String }[]>([]);
+  
   let users: IUser[];
   let user1 = { name: 'tan' }
   // user = user1;
@@ -58,9 +62,24 @@ export default function Home() {
 
   }
 
+  // let _footerMessage = 'Copyright 2024'
+
+  function changeFooter() {
+    setFooterMessage(footerMessage += '!');
+    console.log('bbbbbbbbbbbbbbbbbbb', footerMessage);
+
+  }
+
+  function changeNavItems() {
+    navItems.push({ title: 'Home', url: '/home' })
+    setNavItems([...navItems]);
+    console.log('vvvvvvvvvvvvvvvvvvv', navItems);
+
+  }
+
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar items={navItems}></NavBar>
       {
         isEdit ?
           <div className='user-edit'></div> :
@@ -76,9 +95,12 @@ export default function Home() {
                 );
               })
             }
+
+            <button onClick={() => changeNavItems()}>Change Nav Items</button>
+            <button onClick={() => changeFooter()}>Change Footer</button>
           </div>
       }
-      <Footer></Footer>
+      <Footer message={footerMessage}></Footer>
     </>
   )
 }

@@ -1,3 +1,6 @@
+
+
+
 export default function UserDetail({ params }: any) {
     return (
       <div>
