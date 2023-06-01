@@ -58,17 +58,50 @@ export default function Home() {
   }
   
   return (
-    <div>
-      <h1 className={styles.red} style={{ color: 'blue', backgroundColor: '#fff' }}>{users.map(user => user.name)}</h1>
+    <>
+    {
+      //isEdit? 
+      // <div></div>:
+      <div>
+      {/* <h1 className={styles.red} style={{ color: 'blue', backgroundColor: '#fff' }}>{users.map(user => user.name)}</h1>
       <button onClick={(ev) => {test(ev, 1)}}>Test</button>
       <table></table>
       {
-        users.map(user => {
+        users.map((user, index) => {
           return  (
-            <div><span>User Name: </span><span>{user.name}</span></div>
+            <div key={index}><span>User Name: </span><span>{user.name}</span></div>
           );
         })
-      }
+      } */}
+      <h1 className={styles.red}>User List</h1>
+      <button onClick={(ev) => {test(ev, 1)}}>Add User</button>
+      <table className={styles.border}>
+        <tr className={styles.bold}>
+          <td className={styles.border}>STT</td>
+          <td className={styles.border}>UserName</td>
+          <td className={styles.border}>Gender</td>
+          <td className={styles.border}>Role</td>
+          <td className={styles.border}>Actions</td>
+        </tr>
+          {
+            users.map((user, index)=>{
+              return (
+                <tr key={index}>
+                  <td className={styles.border}>{index+1}</td>
+                  <td className={styles.border}>{user.name}</td>
+                  <td className={styles.border}>{user.gender.toString()}</td>
+                  <td className={styles.border}>{user.roleId.toString()}</td>
+                  <td className={styles.border}>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+              );
+            })
+          }
+      </table>
     </div>
+    }
+  </>
   )
 }
