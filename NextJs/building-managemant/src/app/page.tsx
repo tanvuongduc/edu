@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image'
 import styles from './page.module.css'
+import { NavBar, Footer } from './nav-bar';
 
 interface IUser {
   id: Number;
@@ -59,6 +60,7 @@ export default function Home() {
 
   return (
     <>
+      <NavBar></NavBar>
       {
         isEdit ?
           <div className='user-edit'></div> :
@@ -76,6 +78,7 @@ export default function Home() {
             }
           </div>
       }
+      <Footer></Footer>
     </>
   )
 }
