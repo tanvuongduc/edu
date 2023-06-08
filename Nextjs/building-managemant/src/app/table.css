@@ -1,10 +1,26 @@
+.container{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    height: 30vh;
+}
+
+
+
 .table {
     border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+    width: 80%; 
+    /* margin: auto; Căn giữa bảng */
   }
   
   .table th, .table td {
     border: 1px solid #ccc; /* Đường viền cho các ô */
     padding: 8px; /* Khoảng cách giữa nội dung và viền */
+  }
+
+  .table td button{
+    border: 1px solid #ccc;
+    padding: 10px; 
   }
   
   .table th {
