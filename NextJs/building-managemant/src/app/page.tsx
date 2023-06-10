@@ -23,7 +23,7 @@ interface IAddress {
 export default function Home() {
   let [footerMessage, setFooterMessage] = useState('Copyright 2024');
   let [navItems, setNavItems] = useState<{ title: String; url: String }[]>([]);
-  
+
   let users: IUser[];
   let user1 = { name: 'tan' }
   // user = user1;
@@ -56,6 +56,32 @@ export default function Home() {
       roleId: 5,
     },
   ]
+
+  let roles = [ // Quyền của hệ thống
+    {
+      id: 1,
+      name: "admin",
+    },
+    {
+      id: 2,
+      name: "citizen",
+    },
+    {
+      id: 3,
+      name: "security",
+    },
+    {
+      id: 4,
+      name: "staff",
+    },
+    {
+      id: 5,
+      name: "guest",
+    },
+  ]
+
+  window.localStorage.setItem('users', JSON.stringify(users))
+  window.localStorage.setItem('roles', JSON.stringify(roles))
 
   function test(ev: any, index: Number) {
     console.log('aaaaaaaaaaaaaaaaaaaaa', ev);

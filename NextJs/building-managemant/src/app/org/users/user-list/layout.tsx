@@ -6,7 +6,7 @@ export default function UserLayout({
     return (
       <section>
         {/* Include shared UI here e.g. a header or sidebar */}
-        <h1>Hehehehehe</h1>
+        {/* <h1>Hehehehehe</h1> */}
    
         {children}
       </section>
