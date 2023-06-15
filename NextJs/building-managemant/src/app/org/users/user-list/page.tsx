@@ -51,13 +51,13 @@ export default function UserList() {
       name: "guest",
     },
   ]
-  useEffect(() => {
 
-    console.log('aaaaaaaaaaaaaaaaaaaa');
-  }, []);
-
-  let [users, setUsers] = useState<IUser[]>(_users)
+  let [users, setUsers] = useState<IUser[]>([])
   let [selectedUser, setSelectedUser] = useState<IUser>()
+  useEffect(() => {
+    users = JSON.parse(window.localStorage.getItem('users') || 'null');
+    console.log('aaaaaaaaaaaaaaaaaaaa', users);
+  }, []);
 
   function onEdit(i: number) {
     setSelectedUser(users[i])
