@@ -1,6 +1,7 @@
 'use client';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { IUser } from '../../user-list/page'
+import { IUser } from '../../user-list/page';
+import axios from 'axios';
 export default function UserDetail({ params }: any) {
   const hasPermission = true; // Replace with your own permission check logic
   let users: IUser[] = [];
@@ -33,6 +34,20 @@ export default function UserDetail({ params }: any) {
     },
   ]
   useEffect(() => {
+    axios.get('/api/users')
+      .then(function (response) {
+        // handle success
+        console.log('aaaaaaaaaaaaaaaaaaaaaa', response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+
+
     users = JSON.parse(window.localStorage.getItem('users') || 'null');
     setSelectedUser(users.find(u => u.id == params.id) || { id: 0, name: '', gender: true, roleId: 0 })
     console.log('Component UserDetail has been init and updated');
@@ -81,9 +96,9 @@ export default function UserDetail({ params }: any) {
       <span>Gender: </span>
       <span>
         <div>
-          <input type="radio" id="male-id" name="gender" placeholder='Gender' value={'true'}  checked={selectedUser.gender == true} onChange={(ev) => { onGenderChange(ev) }} />
+          <input type="radio" id="male-id" name="gender" placeholder='Gender' value={'true'} checked={selectedUser.gender == true} onChange={(ev) => { onGenderChange(ev) }} />
           <label htmlFor="male-id">Male</label><br></br>
-          <input type="radio" id="female-id" name="gender" placeholder='Gender' value={'false'} checked={selectedUser.gender == false} onChange={(ev) => { onGenderChange(ev) }}/>
+          <input type="radio" id="female-id" name="gender" placeholder='Gender' value={'false'} checked={selectedUser.gender == false} onChange={(ev) => { onGenderChange(ev) }} />
           <label htmlFor="female-id">Female</label><br></br>
         </div>
       </span>
