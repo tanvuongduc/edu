@@ -34,10 +34,17 @@ export default function UserDetail({ params }: any) {
     },
   ]
   useEffect(() => {
-    axios.get('/api/users')
+
+    if (!hasPermission) {
+      window.location.replace('/')
+    }
+    
+    axios.get(`/api/users/${params.id}`)
       .then(function (response) {
         // handle success
         console.log('aaaaaaaaaaaaaaaaaaaaaa', response);
+        let user: IUser = response.data || {};
+        setSelectedUser(user)
       })
       .catch(function (error) {
         // handle error
@@ -47,13 +54,6 @@ export default function UserDetail({ params }: any) {
         // always executed
       });
 
-
-    users = JSON.parse(window.localStorage.getItem('users') || 'null');
-    setSelectedUser(users.find(u => u.id == params.id) || { id: 0, name: '', gender: true, roleId: 0 })
-    console.log('Component UserDetail has been init and updated');
-    if (!hasPermission) {
-      window.location.replace('/')
-    }
   }, []);
 
   function onNameChange(ev: ChangeEvent) {

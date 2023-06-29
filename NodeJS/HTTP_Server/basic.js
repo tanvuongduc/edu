@@ -45,6 +45,17 @@ client.connect().then(() => {
         });
     })
 
+    app.get('/users/:id', (req, res) => {
+        let id = req.params.id;
+        id = +id;
+        if (isNaN(id)) {
+            return res.status(400).send("Id must be number");
+        }
+        Users_Collection.findOne({id}).then(_user => {
+            res.status(200).send(_user);
+        });
+    })
+
     app.post('/users', checkToken, async (req, res) => {
         // todo: checktoken
         // console.log('aaaaaaaaaaaaaaaaa', req.headers.token);
