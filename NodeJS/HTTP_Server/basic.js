@@ -51,7 +51,7 @@ client.connect().then(() => {
         if (isNaN(id)) {
             return res.status(400).send("Id must be number");
         }
-        Users_Collection.findOne({id}).then(_user => {
+        Users_Collection.findOne({ id }).then(_user => {
             res.status(200).send(_user);
         });
     })
@@ -172,6 +172,14 @@ client.connect().then(() => {
         if (!_res) return res.status(401).send();
         next();
     }
+
+    app.get('/roles', (req, res) => {
+        Roles_Collection.find().toArray().then(_roles => {
+            setTimeout(() => {
+                res.status(200).send(_roles);
+            }, 5000);
+        });
+    })
 
 }).catch(err => {
     console.log('Connect to db got error: ', err);

@@ -3,56 +3,88 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { IUser } from '../../user-list/page';
 import axios from 'axios';
 export default function UserDetail({ params }: any) {
+  console.log('111111111111111111111111111');
+  
   const hasPermission = true; // Replace with your own permission check logic
   let users: IUser[] = [];
   // let selectedUser: IUser | null = null;
   // if (typeof window !== "undefined") {
 
   let [selectedUser, setSelectedUser] = useState<IUser>(users.find(u => u.id == params.id) || { id: 0, name: '', gender: true, roleId: 0 })
+  let [roles, setRoles] = useState<any[]>([])
   // }
 
-  let roles = [ // Quyền của hệ thống
-    {
-      id: 1,
-      name: "admin",
-    },
-    {
-      id: 2,
-      name: "citizen",
-    },
-    {
-      id: 3,
-      name: "security",
-    },
-    {
-      id: 4,
-      name: "staff",
-    },
-    {
-      id: 5,
-      name: "guest",
-    },
-  ]
+  // let roles = [ // Quyền của hệ thống
+  //   {
+  //     id: 1,
+  //     name: "admin",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "citizen",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "security",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "staff",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "guest",
+  //   },
+  // ]
   useEffect(() => {
 
     if (!hasPermission) {
       window.location.replace('/')
     }
-    
-    axios.get(`/api/users/${params.id}`)
-      .then(function (response) {
+
+    let promiseArr = [axios.get(`/api/roles`), axios.get(`/api/users/${params.id}`)]
+    // let promiseArr1 = [setRoles(), axios.get(`/api/users/${params.id}`)]
+
+    Promise.all(promiseArr).then(([rolesRes, usersRes]) => {
+
         // handle success
-        console.log('aaaaaaaaaaaaaaaaaaaaaa', response);
-        let user: IUser = response.data || {};
+        let roles: any[] = rolesRes.data || [];
+        setRoles(roles)
+
+
+        // handle success
+        let user: IUser = usersRes.data || {};
         setSelectedUser(user)
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
+    })
+    
+    // axios.get(`/api/roles`)
+    //   .then(function (response) {
+    //     // handle success
+    //     let roles: any[] = response.data || [];
+    //     console.log('aaaaaaaaaaaaaaaaaaaaaa', response);
+    //     setRoles(roles)
+    //   })
+    //   .catch(function (error) {
+    //     // handle error
+    //     console.log(error);
+    //   })
+    //   .finally(function () {
+    //     // always executed
+    //   });
+
+    // axios.get(`/api/users/${params.id}`)
+    //   .then(function (response) {
+    //     // handle success
+    //     let user: IUser = response.data || {};
+    //     setSelectedUser(user)
+    //   })
+    //   .catch(function (error) {
+    //     // handle error
+    //     console.log(error);
+    //   })
+    //   .finally(function () {
+    //     // always executed
+    //   });
 
   }, []);
 
