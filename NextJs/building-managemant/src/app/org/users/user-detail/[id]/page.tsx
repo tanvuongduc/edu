@@ -2,6 +2,8 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { IUser } from '../../user-list/page';
 import axios from 'axios';
+
+
 export default function UserDetail({ params }: any) {
   console.log('111111111111111111111111111');
   
@@ -12,30 +14,7 @@ export default function UserDetail({ params }: any) {
 
   let [selectedUser, setSelectedUser] = useState<IUser>(users.find(u => u.id == params.id) || { id: 0, name: '', gender: true, roleId: 0 })
   let [roles, setRoles] = useState<any[]>([])
-  // }
-
-  // let roles = [ // Quyền của hệ thống
-  //   {
-  //     id: 1,
-  //     name: "admin",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "citizen",
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "security",
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "staff",
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "guest",
-  //   },
-  // ]
+  
   useEffect(() => {
 
     if (!hasPermission) {
@@ -88,14 +67,14 @@ export default function UserDetail({ params }: any) {
 
   }, []);
 
-  function onNameChange(ev: ChangeEvent) {
+  function onNameChange(ev: ChangeEvent<HTMLSelectElement>) {
     if (selectedUser.name != ev.target.value) {
       selectedUser.name = ev.target.value;
       setSelectedUser({ ...selectedUser })
     }
   }
 
-  function onGenderChange(ev: ChangeEvent) {
+  function onGenderChange(ev: ChangeEvent<HTMLSelectElement>) {
     selectedUser.gender = ev.target.value == 'false' ? false : true;
     setSelectedUser({ ...selectedUser })
   }
