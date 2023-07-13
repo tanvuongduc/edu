@@ -81,8 +81,8 @@ export default function Home() {
   ]
 console.log('11111111111111111111');
 
-  window.localStorage.setItem('users', JSON.stringify(users))
-  window.localStorage.setItem('roles', JSON.stringify(roles))
+  // window.localStorage.setItem('users', JSON.stringify(users))
+  // window.localStorage.setItem('roles', JSON.stringify(roles))
 
   function test(ev: any, index: Number) {
     console.log('aaaaaaaaaaaaaaaaaaaaa', ev);

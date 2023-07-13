@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 export interface IUser { id?: number; name?: string; gender?: boolean; roleId?: number; roleName?: string }
+export interface IRole { id?: number; name?: string }
 export default function UserList() {
   let _users: IUser[] = [
     {
@@ -92,6 +93,7 @@ export default function UserList() {
             return u;
           }).map((u, i) => {
             return (
+              // eslint-disable-next-line react/jsx-key
               <tr>
                 <td>{i + 1}</td>
                 <td>{u.name}</td>
