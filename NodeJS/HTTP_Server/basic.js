@@ -2,9 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const { MongoClient } = require("mongodb");
 const app = express();
+const util = require("./util")
 
 const url = "mongodb://127.0.0.1:27017";
-const client = new MongoClient({ url });
+const client = new MongoClient(url);
 
 const dbName = "BuildingManagerment";
 
@@ -21,10 +22,10 @@ client
 
     app.use(express.json());
     app.use(cors());
-    app.use(function (req, res, next) {
-      res.headers.set("Access-Control-Allow-Origin", "*");
-      res.headers.set("Access-Control-Allow-Headers", "");
-    });
+    // app.use(function (req, res, next) {
+    //   res.headers.set("Access-Control-Allow-Origin", "*");
+    //   res.headers.set("Access-Control-Allow-Headers", "");
+    // });
 
     //User API
     app.get("/users", (req, res) => {
@@ -216,11 +217,31 @@ client
       // console.log('aaaaaaaaaaaaaaaaa', req.headers.token);
 
       console.log(req.body);
+      let statuses = req.body.statuses;
+      if (statuses.length <= 0) {
+        return res.status(400).send("Statuses must be selected");
+      }
+
+      if (util.hasDuplicates(statuses)) {
+        return res.status(400).send("Statuses cannot be duplicate");
+      }
+
+      const _statuses = await deviceStatusCollection.find({
+        id: {
+          $in: statuses
+        }
+      }).toArray();
+      if(statuses.length > _statuses.length) {
+        return res.status(400).send("Status not existed");
+      }
+
+
       let id = Math.ceil(Math.random() * 1000);
       let deviceType = {
         id,
         name: req.body.name,
         description: req.body.description,
+        statuses: req.body.statuses,
       };
       const result = await deviceTypeCollection.insertOne(deviceType);
       if (result.acknowledged) return res.status(200).send(true);
@@ -358,6 +379,10 @@ client
   .catch((err) => {
     console.log("Connect to db got error: ", err);
   });
+
+function checkToken(req, res, next) {
+  next()
+}
 
 function randomString() {
   return Math.random().toString(360).substring(3, 6);
