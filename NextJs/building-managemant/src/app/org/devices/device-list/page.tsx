@@ -1,51 +1,60 @@
-"use client";
 import React, { useEffect, useState } from "react";
-import { IRole } from "../../roles/role-list/page";
+import { IDeviceStatus } from "../../device-statuses/device-status-list/page";
 import axios from "axios";
+import { IUser } from "../../users/user-list/page";
 
-export interface IUser {
+export interface IDevice {
   id?: number;
   name?: string;
-  gender?: boolean;
-  roleId?: number | string;
-  roleName?: string;
+  owner?: number;
+  ownerName?: string;
+  deviceType: number;
+  deviceTypeName?: string;
+  status?: number;
+  statusName?: string;
 }
 
-export default function UserList(props: IUser) {
+export default function App(props: IDevice) {
   const hasPermission = true;
-  let [users, setUsers] = useState<IUser[]>([]);
-  let [roles, setRoles] = useState<IRole[]>([]);
-  let [selectedUser, setSelectedUser] = useState<IUser>();
+  let [devices, setDevice] = useState<IDevice[]>([]);
+  let [users, setUser] = useState<IUser[]>([]);
+  let [deviceStatus, setDeviceStatus] = useState<IDeviceStatus[]>([]);
+  let [selectedDevice, setSelectedDevice] = useState<IDevice>();
 
   useEffect(() => {
     if (!hasPermission) {
       window.location.replace("/");
     }
 
-    let promiseArr = [axios.get(`/api/roles`), axios.get(`/api/users`)];
+    let promiseArr = [
+      axios.get(`/api/users`),
+      axios.get(`/api/devicestatuses`),
+      axios.get(`/api/devices`),
+    ];
     // let promiseArr1 = [setRoles(), axios.get(`/api/users/${params.id}`)]
 
-    Promise.all(promiseArr).then(([rolesRes, usersRes]) => {
-      // handle success
-      let roles: IRole[] = rolesRes.data || [];
-      setRoles(roles);
+    Promise.all(promiseArr).then(([userRes, deviceStatusRes, deviceRes]) => {
+      let user: IUser[] = userRes.data || {};
+      setUser(user);
 
-      // handle success
-      let user: IUser = usersRes.data || {};
-      setSelectedUser(user);
+      let deviceStatus: IDeviceStatus[] = deviceStatusRes.data || [];
+      setDeviceStatus(deviceStatus);
+
+      let device: IDevice[] = deviceRes.data || {};
+      setDevice(device);
     });
   }, []);
 
   function onEdit(i: number) {
-    setSelectedUser(users[i]);
+    setSelectedDevice(devices[i]);
     // window.localStorage.setItem('selectedUser', users[i].id.toString())
-    window.location.replace(`/org/users/user-detail/${users[i].id}`);
+    window.location.replace(`/org/device/device-detail/${devices[i].id}`);
   }
 
   function onDelete(i: number) {
-    users.splice(i, 1);
+    devices.splice(i, 1);
     axios
-      .delete(`/api/users/`)
+      .delete(`/api/devices/`)
       .then((response) => {
         // Handle successful deletion
         console.log("Item deleted successfully");
@@ -63,29 +72,35 @@ export default function UserList(props: IUser) {
       <div>
         <div>
           <h1>User List</h1>
-          <button>Add new User</button>
+          <button>Add new device</button>
         </div>
 
         <table>
           <tr>
             <th>No.</th>
             <th>Name</th>
-            <th>Gender</th>
-            <th>Role</th>
+            <th>Owner</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
-          {users
-            .map((u) => {
-              u.roleName = roles.find((r) => r.name === u.roleId)?.name;
-              return u;
+          {devices
+            .map((d) => {
+              d.ownerName = users.find((u) => u.name === d.owner)?.name;
+              return d;
             })
-            .map((u, i) => {
+            .map((d) => {
+              d.statusName = deviceStatus.find(
+                (ds) => ds.name === d.status
+              )?.name;
+              return d;
+            })
+            .map((d, i) => {
               return (
                 <tr key={i}>
                   <td>{i + 1}</td>
-                  <td>{u.name}</td>
-                  <td>{u.gender ? "Male" : "Female"}</td>
-                  <td>{u.roleName}</td>
+                  <td>{d.name}</td>
+                  <td>{d.ownerName}</td>
+                  <td>{d.statusName}</td>
                   <td>
                     <span>
                       <button
