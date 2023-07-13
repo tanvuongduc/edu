@@ -1,0 +1,78 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .inputContainer {
+    width: 100%;
+    position: relative;
+  }
+  
+  .inputContainer .input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  .input {
+    width: calc(100% - 80px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-Radius: 5px;
+  }
+  
+  .addIcon {
+    position: absolute;
+    top: 50%;
+    right:5px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+  }
+.ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: relative;
+  }
+  
+.li {
+    width: 100%;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #333;
+    border-width: calc(100%-50%);
+    padding-left: 10px;
+  }
+
+.addIconDelete{
+    position: absolute;
+    right:5px;
+    top: 35%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #ff1700;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+}
