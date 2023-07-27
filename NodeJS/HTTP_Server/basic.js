@@ -147,7 +147,7 @@ client.connect().then(() => {
         console.log('11111111111111111111', req.body);
         const userName = req.body.userName;
         const password = req.body.password;
-        Users_Collection.findOne({ userName }).then(userInst => {
+        Users_Collection.findOne({ name: userName }).then(userInst => {
             console.log('aaaaaaaaaaaaaaaaaa', userInst);
             if (!userInst) return res.status(400).send('Username Not found')
             if (userInst.password != password) return res.status(400).send('Incorrent password')
@@ -186,7 +186,7 @@ client.connect().then(() => {
 });
 
 function randomString() {
-    return Math.random().toString(360).substr(3, 6);
+    return Math.random().toString(36).substr(3, 6);
 }
 
 app.listen(3001);
